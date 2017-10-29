@@ -1,56 +1,64 @@
 pragma solidity ^0.4.4;
 import '../node_modules/zeppelin-solidity/contracts/token/StandardToken.sol';
 
-contract TitanKey is StandardToken {
+contract TtnKey is StandardToken {
 
-  bytes32 public name = 'TitanKey';
+  bytes32 public name = 'TtnKey';
   bytes32 public symbol = 'TITAN';
   uint public decimals = 10;
   uint public INITIAL_SUPPLY = 100000000;
 
-struct TitanName {
-  bytes32 name;
-  address owner;
-  mapping (bytes32 => Currency) curToTitanName; //Übergabe des Namen > Currency
+struct TtnName {
+  bytes32 name; // Ttn Name
+  address owner; // Besitzer
+  mapping (bytes32 => Currency) curToTtnName; // 1 Name hat viele Währungen
 }
 
 struct Currency {
-  mapping (bytes32 => UserPublicKey) userPublicKeyToCur;
+  bytes32 currency; // z.B. ETH, BTC, ...
+  mapping (bytes32 => UserPublicKey) userPublicKeyToCur; //CurNamedByUser wird auf PublicKeys gemappt
 }
 
 struct UserPublicKey {
-  bytes32 name;
-  bytes32 publicKey;
+  bytes32 pubKeyNamedByUser; //Name des PublicKey (Nutzer) z.B: Exodus, Bittrix
+  bytes32 publicKey; //eigentlich publicKey
 }
 
-  //stores a userData Struct for each possible address; Jeder Adresse hat einmal UserData;
-   mapping (bytes32 => TitanName) public titanData;
+mapping (address => TtnName) public ownerToName; // 1 Adresse hat viele Namen
+mapping (bytes32 => TtnName) public ttnLedger; // Ttn hat viele Namen
 
-  function TitanKey() {
+  function TtnKey() {
     totalSupply = INITIAL_SUPPLY;
     balances[msg.sender] = INITIAL_SUPPLY;
   }
 
-  function buildingNameHash (bytes32 _titanName, bytes32 _cur) {
-    //keccak256 returns a bytes32
-  }
-
-  function setUserData(bytes32 _titanName,bytes32 _pubKey,bytes32 _pubKeyNamedByUser,bytes32 _cur) public {
-    if (isNameOwned(_titanName)) {
+  function setUserData(bytes32 _ttnName,bytes32 _pubKey,bytes32 _pubKeyNamedByUser,bytes32 _cur) public {
+    if (isNameOwned(_ttnName)) {
       revert();
-    } else if (isValidCur(_cur)) {
+    } else { if (isValidCur(_cur)) {
 
-    titanData[_titanName].name = _titanName;
-    titanData[_titanName].owner = msg.sender;
+    ttnLedger[_ttnName].name = _ttnName;
+    ttnLedger[_ttnName].owner = msg.sender;
+    ownerToName[msg.sender].name = _ttnName;
 
-    titanData[_titanName].curToTitanName[_titanName].userPublicKeyToCur[_cur].name = _pubKeyNamedByUser;
-    titanData[_titanName].curToTitanName[_titanName].userPublicKeyToCur[_cur].publicKey = _pubKey;
-  } else { revert(); }
+    ttnLedger[_ttnName].curToTtnName[_cur].userPublicKeyToCur[_pubKeyNamedByUser].pubKeyNamedByUser = _pubKeyNamedByUser;
+    ttnLedger[_ttnName].curToTtnName[_cur].userPublicKeyToCur[_pubKeyNamedByUser].publicKey = _pubKey;
+    ownerToName[msg.sender].curToTtnName[_cur].userPublicKeyToCur[_pubKeyNamedByUser].pubKeyNamedByUser = _pubKeyNamedByUser;
+    ownerToName[msg.sender].curToTtnName[_cur].userPublicKeyToCur[_pubKeyNamedByUser].publicKey = _pubKey;
+  } else { revert(); }}
 }
 
-  //Damit man ein Mapping readen kann, braucht man den KeyValue, also userPublicKey
-  function isNameOwned(bytes32 _titanName) constant returns (bool){
-    if (titanData[_titanName].name == 0) { return false;}
+function getNameByAccount() constant returns (bytes32){
+      return ownerToName[msg.sender].name;
+}
+
+function getPublicKeysByName(bytes32 _ttnName) constant returns (bytes32[]){
+    require(ttnLedger[_ttnName].owner = msg.sender);
+    return ttnLedger[_ttnName].curToTtnName[_cur].userPublicKeyToCur[_pubKeyNamedByUser].publicKey;
+}
+
+  function isNameOwned(bytes32 _ttnName) constant returns (bool){
+    if (ttnLedger[_ttnName].name == 0) { return false;}
     else {return true;}
   }
 
