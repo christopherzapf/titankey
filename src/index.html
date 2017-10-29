@@ -39,17 +39,22 @@
               <img
               <span id="TitanKey Prototype"></span>
               <input type="text" class="form-control" id="inputTitanName" placeholder="Tippe deinen Namen ein" />
-              <input type="text" class="form-control" id="currenyPublicKey" placeholder="Public Key" />
-              <input type="text" class="form-control" id="currencyUserName" placeholder="z.B. Exodus" />
-              <select name="currencySymbol" id="preDefiniedCurrencies">
-                <option value="eth">eth</option>
-                <option value="btc">btc</option>
+              <input type="text" class="form-control" id="inputPubKey" placeholder="Public Key" />
+              <input type="text" class="form-control" id="inputPubKeyNamedByUser" placeholder="z.B. Exodus" />
+              <select name="currencySymbol" id="inputCur">
+                <option value="ETH">ETH</option>
+                <option value="BTC">BTC</option>
               </select>
               <button class="btn btn-primary" id="transferButton" type="button">Change Name</button>
               <h4>Your Data</h4>
               <div id="userNames">
                 <input type="text" class="form-control" id="_titanNameAsk" placeholder="Ist der Name vergeben?" />
-                <button class="btn btn-primary" id="getUserData" type="button">Ask</button>
+                <button class="btn btn-primary" id="isNameOwned" type="button">Ask</button>
+
+                <h4>Your Data</h4>
+                <div id="userNames">
+                  <input type="text" class="form-control" id="_currencyAsk" placeholder="Ist der Name vergeben?" />
+                  <button class="btn btn-primary" id="currencyAsk" type="button">Ask</button>
           </div>
         </div>
       </div>

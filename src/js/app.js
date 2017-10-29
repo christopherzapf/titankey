@@ -37,10 +37,11 @@ App = {
 
 bindEvents: function() {
     $(document).on('click', '#transferButton', App.setUserData);
-    $(document).on('click', '#getUserData', App.getUserData);
+    $(document).on('click', '#isNameOwned', App.isNameOwned);
+    $(document).on('click', '#currencyAsk', App.isValidCur);
 },
 
-getUserData: function(){
+isNameOwned: function(){
   //start instance
     var TitanKeyInstance;
     var _titanNameAsk = $('#_titanNameAsk').val();
@@ -65,12 +66,37 @@ getUserData: function(){
           });
   },
 
+  isValidCur: function(){
+    //start instance
+      var TitanKeyInstance;
+      var _titanNameAsk = $('#_currencyAsk').val();
+
+      web3.eth.getAccounts(
+          function(error, accounts) {
+              if (error) {console.log(error);}
+              var account = accounts[0];
+
+              App.contracts.TitanKey.deployed().then(
+                function contractGetUserData (instance) {
+                  TitanKeyInstance = instance;
+
+                  return TitanKeyInstance.isValidCur(_titanNameAsk);
+
+                }).then(
+                  function(result) {
+                    console.log(result);
+                  }).catch(function(err) {
+                    console.log(err.message);
+                  });
+            });
+    },
+
   setUserData: function() {
     var TitanKeyInstance;
-    var _titanName = $('#inputTitanName').val(); //.val = get current value
-    var _cur = $('#currenyPublicKey').val();
-    var _curAddress = $('#currency').val();
-    var _curName = $('#currencyUserName').val();
+    var _titanName = $('#inputTitanName').val().toLowerCase();
+    var _pubKey = $('#inputPubKey').val().toLowerCase();
+    var _pubKeyNamedByUser = $('#inputPubKeyNamedByUser').val().toLowerCase();
+    var _cur = $('#inputCur').val().toLowerCase();
 
     web3.eth.getAccounts(
       function(error, accounts) {
@@ -82,7 +108,7 @@ getUserData: function(){
               TitanKeyInstance = instance;
 
               return TitanKeyInstance.setUserData(
-                _titanName, _cur,_curName ,_curAddress, {from: account});
+                _titanName, _pubKey,_pubKeyNamedByUser ,_cur, {from: account});
             }).then(
               function(result) {
                 console.log(result);
