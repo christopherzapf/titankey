@@ -37,14 +37,12 @@ App = {
 
 bindEvents: function() {
     $(document).on('click', '#transferButton', App.setUserData);
-    $(document).on('click', '#isNameOwned', App.isNameOwned);
-    $(document).on('click', '#currencyAsk', App.isValidCur);
+    $(document).on('click', '#getNames', App.getNames);
 },
 
-isNameOwned: function(){
+getNames: function(){
   //start instance
     var TitanKeyInstance;
-    var _titanNameAsk = $('#_titanNameAsk').val();
 
     web3.eth.getAccounts(
         function(error, accounts) {
@@ -55,48 +53,24 @@ isNameOwned: function(){
               function contractGetUserData (instance) {
                 TitanKeyInstance = instance;
 
-                return TitanKeyInstance.isNameOwned(_titanNameAsk);
+                return TitanKeyInstance.getNames();
 
               }).then(
                 function(result) {
-                  console.log(result);
+
+                result.forEach(function(element) {
+                      console.log(web3.toUtf8(element));
+                })
+
                 }).catch(function(err) {
                   console.log(err.message);
                 });
           });
   },
 
-  isValidCur: function(){
-    //start instance
-      var TitanKeyInstance;
-      var _titanNameAsk = $('#_currencyAsk').val();
-
-      web3.eth.getAccounts(
-          function(error, accounts) {
-              if (error) {console.log(error);}
-              var account = accounts[0];
-
-              App.contracts.TitanKey.deployed().then(
-                function contractGetUserData (instance) {
-                  TitanKeyInstance = instance;
-
-                  return TitanKeyInstance.isValidCur(_titanNameAsk);
-
-                }).then(
-                  function(result) {
-                    console.log(result);
-                  }).catch(function(err) {
-                    console.log(err.message);
-                  });
-            });
-    },
-
   setUserData: function() {
     var TitanKeyInstance;
     var _titanName = $('#inputTitanName').val().toLowerCase();
-    var _pubKey = $('#inputPubKey').val().toLowerCase();
-    var _pubKeyNamedByUser = $('#inputPubKeyNamedByUser').val().toLowerCase();
-    var _cur = $('#inputCur').val().toLowerCase();
 
     web3.eth.getAccounts(
       function(error, accounts) {
@@ -107,8 +81,8 @@ isNameOwned: function(){
             function _setUserData (instance) {
               TitanKeyInstance = instance;
 
-              return TitanKeyInstance.setUserData(
-                _titanName, _pubKey,_pubKeyNamedByUser ,_cur, {from: account});
+              return TitanKeyInstance.insertNewName(
+                _titanName, {from: account});
             }).then(
               function(result) {
                 console.log(result);

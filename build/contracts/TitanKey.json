@@ -2,31 +2,6 @@
   "contract_name": "TitanKey",
   "abi": [
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_titanName",
-          "type": "bytes32"
-        },
-        {
-          "name": "_pubKey",
-          "type": "bytes32"
-        },
-        {
-          "name": "_pubKeyNamedByUser",
-          "type": "bytes32"
-        },
-        {
-          "name": "_cur",
-          "type": "bytes32"
-        }
-      ],
-      "name": "setUserData",
-      "outputs": [],
-      "payable": false,
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "name",
@@ -168,30 +143,26 @@
     },
     {
       "constant": true,
-      "inputs": [
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
         {
           "name": "",
           "type": "bytes32"
-        }
-      ],
-      "name": "titanData",
-      "outputs": [
-        {
-          "name": "name",
-          "type": "bytes32"
-        },
-        {
-          "name": "owner",
-          "type": "address"
         }
       ],
       "payable": false,
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "symbol",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_titanName",
+          "type": "bytes32"
+        }
+      ],
+      "name": "insertNewName",
       "outputs": [
         {
           "name": "",
@@ -224,53 +195,13 @@
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_titanName",
-          "type": "bytes32"
-        },
-        {
-          "name": "_cur",
-          "type": "bytes32"
-        }
-      ],
-      "name": "buildingNameHash",
-      "outputs": [],
-      "payable": false,
-      "type": "function"
-    },
-    {
       "constant": true,
-      "inputs": [
-        {
-          "name": "_titanName",
-          "type": "bytes32"
-        }
-      ],
-      "name": "isNameOwned",
+      "inputs": [],
+      "name": "getNames",
       "outputs": [
         {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_cur",
-          "type": "bytes32"
-        }
-      ],
-      "name": "isValidCur",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
+          "name": "_names",
+          "type": "bytes32[]"
         }
       ],
       "payable": false,
@@ -321,11 +252,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "payable": false,
-      "type": "constructor"
-    },
-    {
       "anonymous": false,
       "inputs": [
         {
@@ -370,7 +296,7 @@
       "type": "event"
     }
   ],
-  "unlinked_binary": "0x60606040527f546974616e4b65790000000000000000000000000000000000000000000000006003557f544954414e000000000000000000000000000000000000000000000000000000600455600a6005556305f5e100600655341561006457600080fd5b5b6006546000818155600160a060020a0333168152600160205260409020555b5b610a94806100946000396000f300606060405236156100ee5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663029880ba81146100f357806306fdde0314610114578063095ea7b31461013957806318160ddd1461016f57806323b872dd146101945780632ff2e9dc146101d0578063313ce567146101f5578063661884631461021a57806370a08231146102505780637d67cf5b1461028157806395d89b41146102b8578063a9059cbb146102dd578063ab69cfa714610313578063bad8e07a1461032e578063cf62555214610358578063d73dd62314610382578063dd62ed3e146103b8575b600080fd5b34156100fe57600080fd5b6101126004356024356044356064356103ef565b005b341561011f57600080fd5b61012761047b565b60405190815260200160405180910390f35b341561014457600080fd5b61015b600160a060020a0360043516602435610481565b604051901515815260200160405180910390f35b341561017a57600080fd5b6101276104ee565b60405190815260200160405180910390f35b341561019f57600080fd5b61015b600160a060020a03600435811690602435166044356104f4565b604051901515815260200160405180910390f35b34156101db57600080fd5b610127610620565b60405190815260200160405180910390f35b341561020057600080fd5b610127610626565b60405190815260200160405180910390f35b341561022557600080fd5b61015b600160a060020a036004351660243561062c565b604051901515815260200160405180910390f35b341561025b57600080fd5b610127600160a060020a0360043516610728565b60405190815260200160405180910390f35b341561028c57600080fd5b610297600435610747565b604051918252600160a060020a031660208201526040908101905180910390f35b34156102c357600080fd5b610127610769565b60405190815260200160405180910390f35b34156102e857600080fd5b61015b600160a060020a036004351660243561076f565b604051901515815260200160405180910390f35b341561031e57600080fd5b610112600435602435610846565b005b341561033957600080fd5b61015b60043561084b565b604051901515815260200160405180910390f35b341561036357600080fd5b61015b600435610876565b604051901515815260200160405180910390f35b341561038d57600080fd5b61015b600160a060020a036004351660243561093d565b604051901515815260200160405180910390f35b34156103c357600080fd5b610127600160a060020a03600435811690602435166109e2565b60405190815260200160405180910390f35b6103f88461084b565b1561040257600080fd5b61040b81610876565b156100ee5760008481526007602090815260408083208781556001808201805473ffffffffffffffffffffffffffffffffffffffff191633600160a060020a03161790556002909101835281842085855290925290912083815501839055610473565b600080fd5b5b5b50505050565b60035481565b600160a060020a03338116600081815260026020908152604080832094871680845294909152808220859055909291907f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259085905190815260200160405180910390a35060015b92915050565b60005481565b600080600160a060020a038416151561050c57600080fd5b50600160a060020a03808516600081815260026020908152604080832033909516835293815283822054928252600190529190912054610552908463ffffffff610a0f16565b600160a060020a038087166000908152600160205260408082209390935590861681522054610587908463ffffffff610a2616565b600160a060020a0385166000908152600160205260409020556105b0818463ffffffff610a0f16565b600160a060020a03808716600081815260026020908152604080832033861684529091529081902093909355908616917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9086905190815260200160405180910390a3600191505b509392505050565b60065481565b60055481565b600160a060020a0333811660009081526002602090815260408083209386168352929052908120548083111561068957600160a060020a0333811660009081526002602090815260408083209388168352929052908120556106c0565b610699818463ffffffff610a0f16565b600160a060020a033381166000908152600260209081526040808320938916835292905220555b600160a060020a0333811660008181526002602090815260408083209489168084529490915290819020547f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925915190815260200160405180910390a3600191505b5092915050565b600160a060020a0381166000908152600160205260409020545b919050565b60076020526000908152604090208054600190910154600160a060020a031682565b60045481565b6000600160a060020a038316151561078657600080fd5b600160a060020a0333166000908152600160205260409020546107af908363ffffffff610a0f16565b600160a060020a0333811660009081526001602052604080822093909355908516815220546107e4908363ffffffff610a2616565b600160a060020a0380851660008181526001602052604090819020939093559133909116907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9085905190815260200160405180910390a35060015b92915050565b5b5050565b600081815260076020526040812054151561086857506000610742565b506001610742565b5b919050565b6000610880610a40565b60007f65746800000000000000000000000000000000000000000000000000000000008260015b60200201527f62746300000000000000000000000000000000000000000000000000000000008260005b60200201525060005b6002811015610931578360405190815260200160405190819003902082826002811061090257fe5b602002015160405190815260200160405190819003902014156109285760019250610936565b5b6001016108da565b600092505b5050919050565b600160a060020a033381166000908152600260209081526040808320938616835292905290812054610975908363ffffffff610a2616565b600160a060020a0333811660008181526002602090815260408083209489168084529490915290819020849055919290917f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92591905190815260200160405180910390a35060015b92915050565b600160a060020a038083166000908152600260209081526040808320938516835292905220545b92915050565b600082821115610a1b57fe5b508082035b92915050565b600082820183811015610a3557fe5b8091505b5092915050565b604080519081016040526002815b60008152600019919091019060200181610a4e57905050905600a165627a7a723058204b11174a31f3268194eb9f9ccb7e99fbaf26791b97313545e9de3efd9a600e2e0029",
+  "unlinked_binary": "0x60606040527f546974616e4b65790000000000000000000000000000000000000000000000006003557f544954414e000000000000000000000000000000000000000000000000000000600455600a6005556305f5e100600655341561006457600080fd5b5b610b9d806100746000396000f300606060405236156100cd5763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166306fdde0381146100d2578063095ea7b3146100f757806318160ddd1461012d57806323b872dd146101525780632ff2e9dc1461018e578063313ce567146101b357806366188463146101d857806370a082311461020e57806395d89b411461023f5780639d6a273e14610264578063a9059cbb1461028c578063cd838f0f146102c2578063d73dd62314610329578063dd62ed3e1461035f575b600080fd5b34156100dd57600080fd5b6100e5610396565b60405190815260200160405180910390f35b341561010257600080fd5b610119600160a060020a036004351660243561039c565b604051901515815260200160405180910390f35b341561013857600080fd5b6100e5610409565b60405190815260200160405180910390f35b341561015d57600080fd5b610119600160a060020a036004358116906024351660443561040f565b604051901515815260200160405180910390f35b341561019957600080fd5b6100e561053b565b60405190815260200160405180910390f35b34156101be57600080fd5b6100e5610541565b60405190815260200160405180910390f35b34156101e357600080fd5b610119600160a060020a0360043516602435610547565b604051901515815260200160405180910390f35b341561021957600080fd5b6100e5600160a060020a0360043516610643565b60405190815260200160405180910390f35b341561024a57600080fd5b6100e5610662565b60405190815260200160405180910390f35b341561026f57600080fd5b6100e5600435610668565b60405190815260200160405180910390f35b341561029757600080fd5b610119600160a060020a03600435166024356107ba565b604051901515815260200160405180910390f35b34156102cd57600080fd5b6102d5610891565b60405160208082528190810183818151815260200191508051906020019060200280838360005b838110156103155780820151818401525b6020016102fc565b505050509050019250505060405180910390f35b341561033457600080fd5b610119600160a060020a03600435166024356109c6565b604051901515815260200160405180910390f35b341561036a57600080fd5b6100e5600160a060020a0360043581169060243516610a6b565b60405190815260200160405180910390f35b60035481565b600160a060020a03338116600081815260026020908152604080832094871680845294909152808220859055909291907f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259085905190815260200160405180910390a35060015b92915050565b60005481565b600080600160a060020a038416151561042757600080fd5b50600160a060020a0380851660008181526002602090815260408083203390951683529381528382205492825260019052919091205461046d908463ffffffff610a9816565b600160a060020a0380871660009081526001602052604080822093909355908616815220546104a2908463ffffffff610aaf16565b600160a060020a0385166000908152600160205260409020556104cb818463ffffffff610a9816565b600160a060020a03808716600081815260026020908152604080832033861684529091529081902093909355908616917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9086905190815260200160405180910390a3600191505b509392505050565b60065481565b60055481565b600160a060020a033381166000908152600260209081526040808320938616835292905290812054808311156105a457600160a060020a0333811660009081526002602090815260408083209388168352929052908120556105db565b6105b4818463ffffffff610a9816565b600160a060020a033381166000908152600260209081526040808320938916835292905220555b600160a060020a0333811660008181526002602090815260408083209489168084529490915290819020547f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925915190815260200160405180910390a3600191505b5092915050565b600160a060020a0381166000908152600160205260409020545b919050565b60045481565b60008181526009602052604081205474010000000000000000000000000000000000000000900460ff161515600114156106c357507f66616c736500000000000000000000000000000000000000000000000000000061065d565b600082815260096020526040902080547401000000000000000000000000000000000000000073ffffffffffffffffffffffffffffffffffffffff1990911633600160a060020a03161774ff00000000000000000000000000000000000000001916179055600880546001810161073a8382610ac9565b916000526020600020900160005b5083905550600160a060020a03331660009081526007602052604090206002018054600181016107788382610ac9565b916000526020600020900160005b50600854600019019055507f747275650000000000000000000000000000000000000000000000000000000090505b919050565b6000600160a060020a03831615156107d157600080fd5b600160a060020a0333166000908152600160205260409020546107fa908363ffffffff610a9816565b600160a060020a03338116600090815260016020526040808220939093559085168152205461082f908363ffffffff610aaf16565b600160a060020a0380851660008181526001602052604090819020939093559133909116907fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9085905190815260200160405180910390a35060015b92915050565b610899610b1d565b600160a060020a0333166000908152600760205260408120600201549081151561091d5760016040518059106108cc5750595b908082528060200260200182016040525b5092507f4c656572000000000000000000000000000000000000000000000000000000008360008151811061090e57fe5b602090810290910101526109c0565b8160405180591061092b5750595b908082528060200260200182016040525b509250600090505b818110156109c057600160a060020a03331660009081526007602052604090206002018054600891908390811061097757fe5b906000526020600020900160005b50548154811061099157fe5b906000526020600020900160005b50548382815181106109ad57fe5b602090810290910101525b600101610944565b5b505090565b600160a060020a0333811660009081526002602090815260408083209386168352929052908120546109fe908363ffffffff610aaf16565b600160a060020a0333811660008181526002602090815260408083209489168084529490915290819020849055919290917f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92591905190815260200160405180910390a35060015b92915050565b600160a060020a038083166000908152600260209081526040808320938516835292905220545b92915050565b600082821115610aa457fe5b508082035b92915050565b600082820183811015610abe57fe5b8091505b5092915050565b815481835581811511610aed57600083815260209020610aed918101908301610b2f565b5b505050565b815481835581811511610aed57600083815260209020610aed918101908301610b2f565b5b505050565b60206040519081016040526000815290565b610b4d91905b80821115610b495760008155600101610b35565b5090565b90565b610b4d91905b80821115610b495760008155600101610b35565b5090565b905600a165627a7a7230582035da40d28b85e5caad3e5cad36ee251d476163d99f555823b23f9ad4801a52e70029",
   "networks": {
     "1507757040919": {
       "events": {
@@ -1595,8 +1521,773 @@
       "links": {},
       "address": "0xee7cc280a6b5deaa38525a6614aa3aa841cebf88",
       "updated_at": 1509282677617
+    },
+    "1509462284166": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x5a4f7451b30f716d38d8c6a031a523fec2a42e21",
+      "updated_at": 1509462297332
+    },
+    "1509462555128": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x21763e3b700c4d8da9ce857ca0ff06c56ae85a00",
+      "updated_at": 1509462622541
+    },
+    "1509887437868": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xa178cd9f56b3594c9f10cc8f262e231a0fd6a6fe",
+      "updated_at": 1509887487923
+    },
+    "1510255399557": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xa28f7efb355cc1e966bcc84738019706d248114f",
+      "updated_at": 1510255410886
+    },
+    "1510413625367": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x2ea8a55e083616e640d390f075199c8dd2d1bc88",
+      "updated_at": 1510413674375
+    },
+    "1510414346813": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x5aa6d65c1cf6732e268730c07268a8af989be66d",
+      "updated_at": 1510414353439
+    },
+    "1510416088029": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x0715241ed538e55c794f1e3e5ddac9e5b121b4d4",
+      "updated_at": 1510416093189
+    },
+    "1510416509956": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x38f6386795803223673c95d9d0fa148f94374e9d",
+      "updated_at": 1510416530551
+    },
+    "1510416709870": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x1f8f31e95319e69578643f6da9f82c827d9d0147",
+      "updated_at": 1510416715772
+    },
+    "1510418733693": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x0fe3f57daf2184ea2c593c03e3ca61ccf2914ddc",
+      "updated_at": 1510418739319
+    },
+    "1510419742340": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf955f228d51032115661a072eac893cd5a360b99",
+      "updated_at": 1510419753000
+    },
+    "1510419934598": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9b4d19678fc4e0972dc8915aef2c5ab32b194334",
+      "updated_at": 1510419946500
+    },
+    "1510420239738": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x263bdb0423d11147bd52c304aa8684f9f9527474",
+      "updated_at": 1510420254115
+    },
+    "1510420651971": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x384a02c7e9193f7d12c0b65e41dce53078f8c6c0",
+      "updated_at": 1510420656515
+    },
+    "1510421076419": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x3fc6decf08b16c2c15d1676464a255b023f6bd47",
+      "updated_at": 1510421082079
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1509283393293
+  "updated_at": 1510421082079
 }
