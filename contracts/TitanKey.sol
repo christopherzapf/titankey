@@ -47,7 +47,7 @@ mapping (bytes32 => TitanName) titanNames; // All names and their owner;
   @params
   @return
   */
-  function getNames() public constant returns (bytes32[] memory _names) {
+  function getNamesOfUser() public constant returns (bytes32[] memory _names) {
     uint256 _len = titanUsers[msg.sender].nameList.length;
     if (_len == 0) {
       _names = new bytes32[](1);
@@ -63,7 +63,18 @@ mapping (bytes32 => TitanName) titanNames; // All names and their owner;
 
     return _names;
   }
+  /*
+
+  @params
+  @return
+  */
+  function isNameAvailable(bytes32 _titanName) public constant returns (bool a) {
+    if(titanNames[_titanName].nameActive) return a = true;
+    return a = false;
+  }
+
 }
+
 
 
 
