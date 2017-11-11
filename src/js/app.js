@@ -38,88 +38,70 @@ App = {
 bindEvents: function() {
     $(document).on('click', '#transferButton', App.setUserData);
     $(document).on('click', '#getNames', App.getNamesOfUser);
+    $(document).on('click', '#nameAvailableBtn', App.isNameAvailable);
 },
 
 getNamesOfUser: function(){
-  //start instance
     var TitanKeyInstance;
 
-    web3.eth.getAccounts(
-        function(error, accounts) {
-            if (error) {console.log(error);}
-            var account = accounts[0];
+    web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+      var account = accounts[0];
 
-            App.contracts.TitanKey.deployed().then(
-              function contractGetUserData (instance) {
+            App.contracts.TitanKey.deployed().then(function (instance) {
                 TitanKeyInstance = instance;
 
                 return TitanKeyInstance.getNamesOfUser();
 
-              }).then(
-                function(result) {
+              }).then(function(result) {
+
                 var a = "";
                 result.forEach(function(element) {
                       a = web3.toUtf8(element) +" "+ a;
                       console.log(web3.toUtf8(element));
                 })
                   $('#namesOfUser').text(a);
-                }).catch(function(err) {
-                  console.log(err.message);
-                });
+
+
+                }).catch(function(err) {console.log(err.message);});
           });
   },
 
-  /*isNameAvailable: function(){
-    //start instance
+  isNameAvailable: function(){
       var TitanKeyInstance;
-      var _name = $('')
+      var _name = $('#nameAvailable').val().toLowerCase();
 
-      web3.eth.getAccounts(
-          function(error, accounts) {
-              if (error) {console.log(error);}
-              var account = accounts[0];
+      web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+        var account = accounts[0];
 
-              App.contracts.TitanKey.deployed().then(
-                function contractGetUserData (instance) {
+              App.contracts.TitanKey.deployed().then(function (instance) {
                   TitanKeyInstance = instance;
 
-                  return TitanKeyInstance.isNameAvailable();
+                  return TitanKeyInstance.isNameAvailable(_name, {from: account});
 
-                }).then(
-                  function(result) {
-                  var a;
-                  result.forEach(function(element) {
-                        a = a + web3.toUtf8(element);
-                  })
+                }).then(function(result) {
 
-                  }).catch(function(err) {
-                    console.log(err.message);
-                  });
-            });
-    },*/
+                  alert("Name ist verfügbar:"+result);
+
+                }).catch(function(err) {console.log(err.message);});
+        });
+    },
 
   setUserData: function() {
     var TitanKeyInstance;
     var _titanName = $('#inputTitanName').val().toLowerCase();
 
-    web3.eth.getAccounts(
-      function(error, accounts) {
-          if (error) {console.log(error);}
-          var account = accounts[0];
+    web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+      var account = accounts[0];
 
-          App.contracts.TitanKey.deployed().then(
-            function _setUserData (instance) {
+          App.contracts.TitanKey.deployed().then(function (instance) {
               TitanKeyInstance = instance;
 
-              return TitanKeyInstance.insertNewName(
-                _titanName, {from: account});
+              return TitanKeyInstance.insertNewName(_titanName, {from: account});
             }).then(
               function(result) {
                 console.log(result);
-              }).catch(function(err) {
-                console.log(err.message);
-              });
-            });
+              }).catch(function(err) {console.log(err.message);});
+    });
           }
 };
 
