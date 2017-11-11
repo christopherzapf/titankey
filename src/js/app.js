@@ -36,10 +36,14 @@ App = {
   },
 
 bindEvents: function() {
-    $(document).on('click', '#transferButton', App.setUserData);
+    $(document).on('click', '#transferButton', App.insertNewName);
     $(document).on('click', '#getNames', App.getNamesOfUser);
     $(document).on('click', '#nameAvailableBtn', App.isNameAvailable);
+    $(document).on('click', '#insertPublicKeys', App.insertPublicKeys);
+    $(document).on('click', '#getPublicKeys', App.getPublicKeyOfUser);
+
 },
+
 
 getNamesOfUser: function(){
     var TitanKeyInstance;
@@ -86,7 +90,7 @@ getNamesOfUser: function(){
         });
     },
 
-  setUserData: function() {
+  insertNewName: function() {
     var TitanKeyInstance;
     var _titanName = $('#inputTitanName').val().toLowerCase();
 
@@ -102,7 +106,54 @@ getNamesOfUser: function(){
                 console.log(result);
               }).catch(function(err) {console.log(err.message);});
     });
-          }
+  },
+
+  insertPublicKeys: function() {
+    var TitanKeyInstance;
+    var _publicKey = $('#publicKey').val().toLowerCase();
+    var _currency = $('#curreny').val().toLowerCase();
+    var _namedByUser = $('#namedByUser').val().toLowerCase();
+    var _publicKeyInformation = _publicKey + "|" + _currency + "|" + _namedByUser;
+
+
+    web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+      var account = accounts[0];
+
+          App.contracts.TitanKey.deployed().then(function (instance) {
+              TitanKeyInstance = instance;
+
+              return TitanKeyInstance.addPublicKeyToUser(_publicKeyInformation, {from: account});
+            }).then(
+              function(result) {
+                console.log(result);
+              }).catch(function(err) {console.log(err.message);});
+    });
+  },
+
+
+  getPublicKeyOfUser: function(){
+      var TitanKeyInstance;
+
+      web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+        var account = accounts[0];
+
+              App.contracts.TitanKey.deployed().then(function (instance) {
+                  TitanKeyInstance = instance;
+
+                  return TitanKeyInstance.getPublicKeysOfUser();
+
+                }).then(function(result) {
+                  var a ="";
+                  result.forEach(function(element) {
+                        a = web3.toUtf8(element).split("|") +" "+ a;
+                        console.log(web3.toUtf8(element));
+                  })
+                    $('#publicKeysOfUser').text(a);
+
+
+                  }).catch(function(err) {console.log(err.message);});
+            });
+    }
 };
 
 $(function() {
