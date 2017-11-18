@@ -38,21 +38,29 @@
               <h4>Namen eintragen</h4>
               <span id="TitanKey Prototype"></span>
               <input type="text" class="form-control" id="inputTitanName" placeholder="Tippe deinen Namen ein" />
-              <button class="btn btn-primary" id="transferButton" type="button">Abesenden</button>
+              <button class="btn btn-primary" id="transferButton" type="button">insertNewName</button>
               <h4>Welchen Namen besitze ich?</h4>
               <span id="namesOfUser"></span>
-                <button class="btn btn-primary" id="getNames" type="button">Ask</button>
-              <h4>Ist der Name verfügbar?</h4>
+                <button class="btn btn-primary" id="getNamesOfUser" type="button">getNamesOfUser</button>
+              <h4>Ist der Name aktiv?</h4>
               <input type="text" class="form-control" id="nameAvailable" placeholder="Tippe deinen Namen ein" />
-              <button class="btn btn-primary" id="nameAvailableBtn" type="button">Ask</button>
+              <button class="btn btn-primary" id="nameAvailableBtn" type="button">isNameAvailable</button>
               <h4>Public Key anlegen</h4>
               <input type="text" class="form-control" id="publicKey" placeholder="Public Key" />
               <input type="text" class="form-control" id="curreny" placeholder="Welche Währung" />
               <input type="text" class="form-control" id="namedByUser" placeholder="Dein eigener Name dafür" />
-              <button class="btn btn-primary" id="insertPublicKeys" type="button">Ask</button>
+              <input type="text" class="form-control" id="isStandard" placeholder="true or false" />
+              <button class="btn btn-primary" id="insertPublicKeys" type="button">insertPublicKeys</button>
               <h4>Meine Public Keys</h4>
               <span id="publicKeysOfUser"></span>
-                <button class="btn btn-primary" id="getPublicKeys" type="button">Ask</button>
+
+                <button class="btn btn-primary" id="getPublicKeys" type="button">getPublicKeysByCur</button>
+
+              <h4>Name Resolver</h4>
+              <input type="text" class="form-control" id="nameToResolve" placeholder="Name" />
+              <input type="text" class="form-control" id="nameToResolve_cur" placeholder="Währung" />
+              <span id="nameResolved"></span>
+              <button class="btn btn-primary" id="getPublicKeyByName" type="button">getPublicKeyByName</button>
       </div>
     </div>
 

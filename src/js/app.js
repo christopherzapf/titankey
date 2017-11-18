@@ -1,4 +1,3 @@
-
 App = {
   web3Provider: null,
   contracts: {},
@@ -17,6 +16,7 @@ App = {
       App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
       web3 = new Web3(App.web3Provider);
     }
+
     return App.initContract();
   },
 
@@ -32,16 +32,17 @@ App = {
       // Set the provider for our contract.
       App.contracts.TitanKey.setProvider(App.web3Provider);
     });
+
     return App.bindEvents();
   },
 
 bindEvents: function() {
     $(document).on('click', '#transferButton', App.insertNewName);
-    $(document).on('click', '#getNames', App.getNamesOfUser);
+    $(document).on('click', '#getNamesOfUser', App.getNamesOfUser);
     $(document).on('click', '#nameAvailableBtn', App.isNameAvailable);
     $(document).on('click', '#insertPublicKeys', App.insertPublicKeys);
-    $(document).on('click', '#getPublicKeys', App.getPublicKeyOfUser);
-
+    $(document).on('click', '#getPublicKeys', App.getPublicKeysByCur);
+    $(document).on('click', '#getPublicKeyByName', App.getPublicKeyByName);
 },
 
 
@@ -65,22 +66,23 @@ getNamesOfUser: function(){
                 })
                   $('#namesOfUser').text(a);
 
-
                 }).catch(function(err) {console.log(err.message);});
           });
   },
 
   isNameAvailable: function(){
       var TitanKeyInstance;
-      var _name = $('#nameAvailable').val().toLowerCase();
 
       web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
         var account = accounts[0];
 
               App.contracts.TitanKey.deployed().then(function (instance) {
                   TitanKeyInstance = instance;
-
-                  return TitanKeyInstance.isNameAvailable(_name, {from: account});
+                  console.log(_name);
+                  return TitanKeyInstance.isNameAvailable(
+                    $('#nameAvailable').val().toLowerCase(),
+                    {from: account}
+                  );
 
                 }).then(function(result) {
 
@@ -92,7 +94,6 @@ getNamesOfUser: function(){
 
   insertNewName: function() {
     var TitanKeyInstance;
-    var _titanName = $('#inputTitanName').val().toLowerCase();
 
     web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
       var account = accounts[0];
@@ -100,21 +101,27 @@ getNamesOfUser: function(){
           App.contracts.TitanKey.deployed().then(function (instance) {
               TitanKeyInstance = instance;
 
-              return TitanKeyInstance.insertNewName(_titanName, {from: account});
+              return TitanKeyInstance.insertNewName(
+                $('#inputTitanName').val().toLowerCase(),
+                {from: account}
+              );
             }).then(
               function(result) {
                 console.log(result);
               }).catch(function(err) {console.log(err.message);});
     });
+    //EVENT LISTNERS:
+    var debugEvent = TitanKeyInstance.debugEventInsertName({_sender: userAddress},{fromBlock: 0, toBlock: 'latest'});
+      debugEvent.watch(function(err, result) {
+        if (err) {
+          console.log(err)
+      }
+      console.log(results.args);
+    });
+    // END EVENTS
   },
 
   insertPublicKeys: function() {
-    var TitanKeyInstance;
-    var _publicKey = $('#publicKey').val().toLowerCase();
-    var _currency = $('#curreny').val().toLowerCase();
-    var _namedByUser = $('#namedByUser').val().toLowerCase();
-    var _publicKeyInformation = _publicKey + "|" + _currency + "|" + _namedByUser;
-
 
     web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
       var account = accounts[0];
@@ -122,7 +129,13 @@ getNamesOfUser: function(){
           App.contracts.TitanKey.deployed().then(function (instance) {
               TitanKeyInstance = instance;
 
-              return TitanKeyInstance.addPublicKeyToUser(_publicKeyInformation, {from: account});
+              return TitanKeyInstance.addPublicKeyToUser(
+                $('#publicKey').val().toLowerCase(),
+                $('#curreny').val().toLowerCase(),
+                $('#namedByUser').val().toLowerCase(),
+                $('#isStandard').val().toLowerCase(),
+                {from: account}
+              );
             }).then(
               function(result) {
                 console.log(result);
@@ -131,16 +144,18 @@ getNamesOfUser: function(){
   },
 
 
-  getPublicKeyOfUser: function(){
+  getPublicKeysByCur: function(){
       var TitanKeyInstance;
+      var cur = ["eth", "btc", "iota"];
 
-      web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
-        var account = accounts[0];
+      cur.forEach(function(_cur) {
+        web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+          var account = accounts[0];
 
               App.contracts.TitanKey.deployed().then(function (instance) {
                   TitanKeyInstance = instance;
 
-                  return TitanKeyInstance.getPublicKeysOfUser();
+                  return TitanKeyInstance.getPublicKeysByCur(_cur);
 
                 }).then(function(result) {
                   var a ="";
@@ -148,16 +163,45 @@ getNamesOfUser: function(){
                         a = web3.toUtf8(element).split("|") +" "+ a;
                         console.log(web3.toUtf8(element));
                   })
-                    $('#publicKeysOfUser').text(a);
+                         $('#publicKeysOfUser').append(_cur +": "+ a + '<br>');
 
 
                   }).catch(function(err) {console.log(err.message);});
             });
-    }
-};
+      });
+    },
+
+
+    getPublicKeyByName: function(){
+        var TitanKeyInstance;
+          web3.eth.getAccounts(function(error, accounts) {if (error) {console.log(error);}
+            var account = accounts[0];
+
+                App.contracts.TitanKey.deployed().then(function (instance) {
+                    TitanKeyInstance = instance;
+
+                    return TitanKeyInstance.getPublicKeyByName(
+                      $('#nameToResolve').val().toLowerCase(),
+                      $('#nameToResolve_cur').val().toLowerCase()
+                    );
+
+                  }).then(function(result) {
+
+                          a = web3.toUtf8(result);
+                          $('#nameResolved').append('resolved key:' + a + '<br>');
+
+
+                    }).catch(function(err) {console.log(err.message);});
+              });
+
+      }
+}
 
 $(function() {
   $(window).load(function() {
     App.init();
+
+    //Get Accounts:
+
   });
 });
