@@ -117,17 +117,17 @@ bytes32[] allNames;
   function addPublicKeyToUser(bytes32 _publicKey, bytes32 _cur, bytes32 _keyName, uint256 _isStandard) public {
       //Ich muss den TitanName in die NamesList; Dann bekomme ich einen Index zurück. Diesen Index speicher ich bei einem Nutzer ab
       //Hinzufügen des Keys in globale Ledger
-    uint256 _len = allKeyHashs.push(_publicKey)-1;
-    uint256 _idOfCurKeyHashList = titanUsers[msg.sender].currencies[_cur].keyHashList.push(_len);
-    titanUsers[msg.sender].userPublicKeys[_len].key =_publicKey;
-    titanUsers[msg.sender].userPublicKeys[_len].keyName =_keyName;
-    titanUsers[msg.sender].userPublicKeys[_len].keyStatus =_isStandard;
+    uint256 _keyIndex = allKeyHashs.push(_publicKey)-1;
+    uint256 _idOfCurKeyHashList = titanUsers[msg.sender].currencies[_cur].keyHashList.push(_keyIndex); //erster Key = _keyIndex 0
+    titanUsers[msg.sender].userPublicKeys[_keyIndex].key =_publicKey;
+    titanUsers[msg.sender].userPublicKeys[_keyIndex].keyName =_keyName;
+    titanUsers[msg.sender].userPublicKeys[_keyIndex].keyStatus =_isStandard;
 
     debugEventInsertPublicKey(
       allKeyHashs,
       titanUsers[msg.sender].currencies[_cur].keyHashList,
       titanUsers[msg.sender].userPublicKeys[allKeyHashs.length-1].key,
-      _len,
+      _keyIndex,
       _idOfCurKeyHashList
       );
 
@@ -152,14 +152,14 @@ bytes32[] allNames;
   @return
   */
 
-  function getPublicKeyByName (bytes32 _titanName, bytes32 _cur) public constant returns (bytes32 _publicKey) {
+  function getPublicKeyByName (bytes32 _titanName, bytes32 _cur) public constant returns (bytes32 _publicKey ) {
     address _owner = titanNames[_titanName].owner;
-    uint256 _len = titanUsers[_owner].currencies[_cur].keyHashList.length-1; //Existiert _cur nicht, ist die Länge unendlcih;
+    uint256 _len = titanUsers[_owner].currencies[_cur].keyHashList.length; //Beispiel: 1 Key, lenght = 1; index 0
 
     uint256 j;
     for(uint i = 0; i < _len; i++){
 
-      j = titanUsers[_owner].currencies[_cur].keyHashList[i]+1;
+      j = titanUsers[_owner].currencies[_cur].keyHashList[i]; //1. durchlauf i = 0; j = 1 //_keyIndex; Need = 0;
 
       if(titanUsers[_owner].userPublicKeys[j].keyStatus == 2) {
         // j = Die Id des zu untersuchenden Keys im Globalen Verzeichnis

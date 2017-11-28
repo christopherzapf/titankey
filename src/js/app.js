@@ -78,7 +78,6 @@ getNamesOfUser: function(){
 
               App.contracts.TitanKey.deployed().then(function (instance) {
                   TitanKeyInstance = instance;
-                  console.log(_name);
                   return TitanKeyInstance.isNameAvailable(
                     $('#nameAvailable').val().toLowerCase(),
                     {from: account}
@@ -187,8 +186,9 @@ getNamesOfUser: function(){
 
                   }).then(function(result) {
 
-                          a = web3.toUtf8(result);
-                          $('#nameResolved').append('resolved key:' + a + '<br>');
+                          pb = web3.toUtf8(result);
+                          //alert(msg = web3.toUtf8(result[1]));
+                          $('#nameResolved').append('resolved key:' + pb + '<br>');
 
 
                     }).catch(function(err) {console.log(err.message);});
