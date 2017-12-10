@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseDirective } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -18,7 +17,6 @@ import { SendComponent } from './send/send.component';
 @NgModule({
   imports: [
     BrowserModule,
-    NgbModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
