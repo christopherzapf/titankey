@@ -1,30 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>TutorialToken - Wallet</title>
 
-<head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>TutorialToken - Wallet</title>
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">TitanKey Prototype</h1>
+          <hr/>
+          <br/>
+        </div>
+      </div>
 
-<body>
-  <app-root>Loading...</app-root>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        Include all compiled plugins (below), or include individual files as needed 
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/web3.min.js"></script>
-        <script src="js/truffle-contract.js"></script>
-        <script src="js/app.js"></script> -->
-</body>
+      <div class="row">
+        <div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">TitanKey</h3>
+              <span id="getUserData"><img class="img-rounded img-center" style="width: 20px;" src="img/refresh.png"></span>
+            </div>
+            <div class="panel-body">
+              <h4>Namen eintragen</h4>
+              <span id="TitanKey Prototype"></span>
+              <input type="text" class="form-control" id="inputTitanName" placeholder="Tippe deinen Namen ein" />
+              <button class="btn btn-primary" id="transferButton" type="button">insertNewName</button>
+              <h4>Welchen Namen besitze ich?</h4>
+              <span id="namesOfUser"></span>
+                <button class="btn btn-primary" id="getNamesOfUser" type="button">getNamesOfUser</button>
+              <h4>Ist der Name aktiv?</h4>
+              <input type="text" class="form-control" id="nameAvailable" placeholder="Tippe deinen Namen ein" />
+              <button class="btn btn-primary" id="nameAvailableBtn" type="button">isNameAvailable</button>
+              <h4>Public Key anlegen</h4>
+              <input type="text" class="form-control" id="publicKey" placeholder="Public Key" />
+              <input type="text" class="form-control" id="curreny" placeholder="Welche Währung" />
+              <input type="text" class="form-control" id="namedByUser" placeholder="Dein eigener Name dafür" />
+              <input type="text" class="form-control" id="isStandard" placeholder="true or false" />
+              <button class="btn btn-primary" id="insertPublicKeys" type="button">insertPublicKeys</button>
+              <h4>Meine Public Keys</h4>
+              <span id="publicKeysOfUser"></span>
 
+                <button class="btn btn-primary" id="getPublicKeys" type="button">getPublicKeysByCur</button>
+
+              <h4>Name Resolver</h4>
+              <input type="text" class="form-control" id="nameToResolve" placeholder="Name" />
+              <input type="text" class="form-control" id="nameToResolve_cur" placeholder="Währung" />
+              <span id="nameResolved"></span>
+              <button class="btn btn-primary" id="getPublicKeyByName" type="button">getPublicKeyByName</button>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
