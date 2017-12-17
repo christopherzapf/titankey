@@ -1,10 +1,9 @@
-pragma solidity ^0.4.14;
-import '../node_modules/zeppelin-solidity/contracts/token/StandardToken.sol';
+pragma solidity ^0.4.18;
+import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 
 contract TitanKey is StandardToken {
-  event debugEventInsertName(address owner, bool nameActive, bytes32[] allNames, uint256 namesListId);
-  event debugEventInsertPublicKey(bytes32[] allKeyHash, uint256[] _curKeys, bytes32 expectedKey, uint256 lengthOfAllKeyHash,uint256 _idOfCurKeyHashList);
-  event debug (bool wirklichTrue);
+  event UserSignedUp(address indexed _userAddress, bytes32 _firstName, bytes32 _lastName, bytes32 indexed _email);
+  event UserUpdatedProfile(address indexed _userAddress, bytes32 _firstName, bytes32 _lastName, bytes32 indexed _email);
 
   bytes32 public name = 'TitanKey';
   bytes32 public symbol = 'TITAN';
@@ -12,8 +11,12 @@ contract TitanKey is StandardToken {
   uint public INITIAL_SUPPLY = 100000000;
   bytes32[] public validCurrencies;
 
+// DATA MODEL
 
 struct TitanUser {
+  bytes32 firstName;
+  bytes32 lastName;
+  bytes32 email;
   bytes32 emailHash;
   bool userActive;
   uint256[] nameList;  //IDs der globalen NameList, die dem Nutzer gehören.
@@ -50,6 +53,15 @@ bytes32[] allKeyHashs;
 bytes32[] allNames;
 
 
+// MODIFIER
+/* Check if user exists or terminate */
+modifier onlyExistingUser {
+  require(!(titanUsers[msg.sender].firstName == 0x0) && !(titanUsers[msg.sender].lastName == 0x0) && !(titanUsers[msg.sender].email == 0x0));
+  _;
+}
+
+// FUNCTIONS
+
 /*
 
 @params _titanName: TitanName
@@ -65,10 +77,6 @@ bytes32[] allNames;
     allNames.push(_titanName); //erster Name = stelle 0; länge 1
     titanUsers[msg.sender].nameList.push(allNames.length-1);
 
-    debugEventInsertName(titanNames[_titanName].owner,
-      titanNames[_titanName].nameActive,allNames,
-      titanUsers[msg.sender].nameList.length
-    );
   }
   /*
 
@@ -123,34 +131,7 @@ bytes32[] allNames;
     titanUsers[msg.sender].userPublicKeys[_keyIndex].keyName =_keyName;
     titanUsers[msg.sender].userPublicKeys[_keyIndex].keyStatus =_isStandard;
 
-    debugEventInsertPublicKey(
-      allKeyHashs,
-      titanUsers[msg.sender].currencies[_cur].keyHashList,
-      titanUsers[msg.sender].userPublicKeys[allKeyHashs.length-1].key,
-      _keyIndex,
-      _idOfCurKeyHashList
-      );
-
   }
-
-
-  /*
-  Mögliche Probleme:
-  Aktuelles Verhalten: Egal, wie viele Key ich eingebe, es wird immer nur der erste ausgeben. Unabhängig der Währung
-
-  1. Es gibt keine Namenszuordnung beim Public Key; Ist irgendwo egal, da ich über den Namen, auf den Besitzer komme
-  2. Gibt es wirklich bei
-
-
-  Next Step: Events lernen und debuggen mit Events;
-
-  */
-
-  /* the name resolver
-
-  @params: _titanName: Name that should be resolved; _cur: Currency where the public key is
-  @return
-  */
 
   function getPublicKeyByName (bytes32 _titanName, bytes32 _cur) public constant returns (bytes32 _publicKey ) {
     address _owner = titanNames[_titanName].owner;
@@ -182,4 +163,25 @@ bytes32[] allNames;
     return false;
   }
 
-}
+  // USER - Functions
+
+    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email) public {
+      if (titanUsers[msg.sender].firstName == 0x0) titanUsers[msg.sender].firstName = _firstName;
+      if (titanUsers[msg.sender].lastName == 0x0) titanUsers[msg.sender].lastName = _lastName;
+      if (titanUsers[msg.sender].email == 0x0) titanUsers[msg.sender].email = _email;
+
+       UserSignedUp(msg.sender, _firstName, _lastName, _email);
+    }
+
+    function userUpdate(bytes32 _firstName, bytes32 _lastName, bytes32 _email) onlyExistingUser public {
+      titanUsers[msg.sender].firstName = _firstName;
+      titanUsers[msg.sender].lastName = _lastName;
+      titanUsers[msg.sender].email = _email;
+    }
+
+    function userLogin() external view onlyExistingUser returns (bytes32, bytes32, bytes32)
+    {
+      return (titanUsers[msg.sender].firstName, titanUsers[msg.sender].lastName, titanUsers[msg.sender].email);
+    }
+
+  }
