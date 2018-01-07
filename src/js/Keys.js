@@ -2,22 +2,24 @@ import contract from 'truffle-contract'
 import TitanKey from '../../build/contracts/Titankey.json'
 import { APPROVED_NETWORK_ID, NETWORKS } from '../util/constants'
 
-let auth = null
-class Auth {
+let keys = null
+class Keys {
   constructor () {
-    auth = auth || this
-    return auth
+    keys = keys || this
+    return keys
   }
 
-  editProfile (state = null, data = {}) {
+  addPublicKeyToUser (state = null, data = {}) {
     return new Promise((resolve, reject) => {
       this.accessTitanKeyContractWith({
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.userUpdate(data.firstName, data.lastName, data.email, data.nameIsEmail, { from: coinbase, gas: 4444444 })
+            contractInstance.addPublicKeyToUser(data.key, data.name, data.currency, data.isDefault, { from: coinbase })
             .then((result) => {
               // Successful Sign-up
+              console.log(data.key, data.name, data.currency, data.isDefault)
+              console.log('Keys.js > addPublicKeyToUser')
               resolve(data)
             })
             .catch((e) => {
@@ -27,30 +29,6 @@ class Auth {
         }
       })
       .then((result) => {
-        resolve(result)
-      })
-    })
-  }
-
-  signup (state = null, data = {}) {
-    return new Promise((resolve, reject) => {
-      this.accessTitanKeyContractWith({
-        state,
-        method: (contractInstance, coinbase) => {
-          return new Promise((resolve, reject) => {
-            contractInstance.userSignUp(data.firstName, data.lastName, data.email, data.nameIsEmail, { from: coinbase })
-            .then((result) => {
-              // Successful Sign-up
-              resolve(data)
-            })
-            .catch((e) => {
-              reject(e)
-            })
-          })
-        }
-      })
-      .then((result) => {
-        console.log(result)
         resolve(result)
       })
       .catch((err) => {
@@ -59,16 +37,17 @@ class Auth {
     })
   }
 
-  login (state = null) {
+  getPublicKeys (state = null) {
     return new Promise((resolve, reject) => {
       this.accessTitanKeyContractWith({
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.userLogin({from: coinbase})
+            contractInstance.getPublicKeys({from: coinbase})
             .then((result) => {
               // Successful Fetch
-              resolve(this.getUTF8UserData(state, result))
+              console.log('Keys.js > getPublicKeys')
+              resolve(this.getPublicKeysUTF8(state, result))
             })
             .catch((e) => {
               reject(e)
@@ -84,6 +63,71 @@ class Auth {
       })
     })
   }
+
+  getPublicKeysUTF8 (state, results) {
+    console.log('Keys.js > getPublicKeysUTF8')
+
+    let publicKeys = results[0]
+    let currencies = results[1]
+    let names = results[2]
+    let isDefault = results[3]
+
+    publicKeys = publicKeys.map(result => state.web3.instance().toUtf8(result))
+    currencies = currencies.map(result => state.web3.instance().toUtf8(result))
+    names = names.map(result => state.web3.instance().toUtf8(result))
+
+    console.log(publicKeys)
+
+    return {
+      key: publicKeys,
+      name: names,
+      currency: currencies,
+      isDefault: isDefault
+    }
+  }
+
+  /* getCurFromUser (state = null) {
+    return new Promise((resolve, reject) => {
+      this.accessTitanKeyContractWith({
+        state,
+        method: (contractInstance, coinbase) => {
+          return new Promise((resolve, reject) => {
+            contractInstance.getCurFromUser({from: coinbase})
+            .then((result) => {
+              // Successful Fetch
+              console.log('getCurFromUser:')
+              console.log(result)
+              resolve(
+                this.getUTF8UserCurrencies(state, result)
+              )
+            })
+            .catch((e) => {
+              reject(e)
+            })
+          })
+        }
+      })
+      .then((result) => {
+        resolve(result)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  }
+
+  getUTF8UserCurrencies (state, results) {
+    // map ruft für jeden Wert des Arrays die übergebene Funktion auf
+    // Arrowfunctions: result (function params), => (return wert)
+    const utf8Results = results.map(result => state.web3.instance().toUtf8(result))
+    return {
+      key: utf8Results[0],
+      name: utf8Results[1],
+      currency: utf8Results[2],
+      isDefault: utf8Results[3]
+    }
+  }
+*/
 
   accessTitanKeyContractWith (dataObject = {}) {
     const state = dataObject.state
@@ -120,18 +164,6 @@ class Auth {
       }
     })
   }
-
-  getUTF8UserData (state, results) {
-    console.log(2)
-    console.log(results)
-    const utf8Results = results.map(result => state.web3.instance().toUtf8(result))
-    console.log(utf8Results)
-    return {
-      firstName: utf8Results[0],
-      lastName: utf8Results[1],
-      email: utf8Results[2]
-    }
-  }
 }
 
-export default new Auth()
+export default new Keys()

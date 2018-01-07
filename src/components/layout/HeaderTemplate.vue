@@ -4,11 +4,10 @@
       <router-link to="/" class="logo">INSERT YOUR LOGO HERE</router-link>
       <div class="links">
         <router-link to="/sign-up" class="link1" v-if="!user.isLoggedIn">Sign Up</router-link> <span v-if="!user.isLoggedIn" class="divider"></span>
+        <router-link to="/keys" class="link1" v-if="user.isLoggedIn">Keys</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
         <input type="button" class="link1" v-if="!user.isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!user.isLoggedIn" class="divider"></span>
         <router-link to="/profile/edit" class="link2" v-if="user.isLoggedIn">Edit Profile</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
         <input type="button" class="link2" v-if="user.isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="user.isLoggedIn" class="divider"></span>
-        <a href="https://github.com/DOkwufulueze/eth-vue" target="_blank" class="link3">Github</a> <span class="divider"></span>
-        <a href="http://danielokwufulueze.com" target="_blank" class="link4">www</a>
       </div>
     </div>
   </div>
@@ -22,10 +21,10 @@
         ACTION_TYPES.LOGIN,
         ACTION_TYPES.LOGOUT
       ]),
-      logUserIn (evt) {
+      logUserIn (evt) { // evt = die event variable im DOM Tree (tag z.b tag name)
         evt.target.disabled = true
         if (!this.user.isLoggedIn) {
-          Auth.login(this.$store.state)
+          Auth.login(this.$store.state) // Start des Logins, Übergabe an Auth, dann zurück und an mutation
           .then((userData) => {
             this[ACTION_TYPES.LOGIN](userData)
             .then((userData) => {

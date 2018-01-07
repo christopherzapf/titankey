@@ -17,8 +17,8 @@ struct TitanUser {
   bytes32 firstName;
   bytes32 lastName;
   bytes32 email;
-  bytes32 emailHash;
   bool userActive;
+  bytes32[] curList;
   uint256[] nameList;  //IDs der globalen NameList, die dem Nutzer gehören.
   mapping (bytes32 => Currency) currencies; //Jede Curreny bekommt eine eigene PublicKey Ledger; Bytes32 = curreny
   mapping (uint256 => PublicKey) userPublicKeys; //int32= ID des Keys; PublicKey hat weitere Infos;
@@ -26,13 +26,15 @@ struct TitanUser {
 mapping (address => TitanUser) titanUsers; //Alle Nutzer
 
 struct Currency {
-  uint256[] keyHashList;//IDs der globalen KeyList, die dem Nutzer gehören.
+  uint256[] keyIdGlobal;//IDs der globalen KeyList, die dem Nutzer gehören.
+  bool isActive;
 }
 
 struct PublicKey {
-  bool isStandard;
-  uint256 keyStatus; // 1 = Existiert; 2 = Standard
+  bool isDefault;
+  bool keyStatus; // 1 = Existiert; 2 = Standard
   bytes32 keyName;
+  uint256 lastChange;
   bytes32 key;
 }
 
@@ -67,7 +69,7 @@ modifier onlyExistingUser {
 @params _titanName: TitanName
 @return false, if Name is active; true, if Name is not active
 */
-  function insertNewName(bytes32 _titanName) public {
+  function insertNewName(bytes32 _titanName) onlyExistingUser public {
     //wenn der Name aktiv ist, dann darf die funktion nicht funktionieren
     if (titanNames[_titanName].nameActive == true) revert();
 
@@ -77,6 +79,14 @@ modifier onlyExistingUser {
     allNames.push(_titanName); //erster Name = stelle 0; länge 1
     titanUsers[msg.sender].nameList.push(allNames.length-1);
 
+  }
+  /*
+
+  @params
+  @return
+  */
+  function isNameAvailable(bytes32 _titanName) public constant returns (bool) {
+    return titanNames[_titanName].nameActive;
   }
   /*
 
@@ -100,49 +110,69 @@ modifier onlyExistingUser {
   @params
   @return
   */
-  function getPublicKeysByCur(bytes32 _cur) public constant returns (bytes32[] memory _publicKeys /*,bytes32[] memory _keyName*/) {
+  function getPublicKeys() public constant returns (bytes32[] memory _publicKeys ,bytes32[] memory _keyNames,bytes32[] memory _currency ,bool[] memory _isDefault, uint[] _lastChange) {
+    if (titanUsers[msg.sender].curList.length == 0) revert();
 
-    uint256 _len = titanUsers[msg.sender].currencies[_cur].keyHashList.length;
-    _publicKeys = new bytes32[](_len);
+    bytes32[] memory _userCurrencies = titanUsers[msg.sender].curList;
 
-    if (_len == 0) revert();
-
-    for(uint i = 0; i < _len; i++){
-      _publicKeys[i] = allKeyHashs[titanUsers[msg.sender].currencies[_cur].keyHashList[i]];
-      //_keyName[i] = titanUsers[msg.sender].userPublicKeys[i].keyName;
+    // get count of all keys of all user currencies for fixed length memory arrays
+    uint256 _countofKeys = 0;
+    for (uint k = 0; k < _userCurrencies.length; k++) {
+      _countofKeys += titanUsers[msg.sender].currencies[_userCurrencies[k]].keyIdGlobal.length;
     }
-    return (_publicKeys/*,_keyNames*/);
-  }
-  /*
 
-  @params
-  @return
-  */
-  function isNameAvailable(bytes32 _titanName) public constant returns (bool) {
-    return titanNames[_titanName].nameActive;
+    _publicKeys = new bytes32[](_countofKeys);
+    _keyNames = new bytes32[](_countofKeys);
+    _currency = new bytes32[](_countofKeys);
+    _isDefault = new bool[](_countofKeys);
+    _lastChange = new uint256[](_countofKeys);
+
+    for (uint i = 0; i < _userCurrencies.length; i++) {
+      uint256[] memory _currencyGlobalKeys = titanUsers[msg.sender].currencies[_userCurrencies[i]].keyIdGlobal;
+
+      for(uint j = 0; j < _currencyGlobalKeys.length; j++){
+
+        _publicKeys[_countofKeys-1] = titanUsers[msg.sender].userPublicKeys[_currencyGlobalKeys[j]].key;
+        _keyNames[_countofKeys-1] = titanUsers[msg.sender].userPublicKeys[_currencyGlobalKeys[j]].keyName;
+        _currency[_countofKeys-1] = _userCurrencies[i];
+        _isDefault[_countofKeys-1] = titanUsers[msg.sender].userPublicKeys[_currencyGlobalKeys[j]].isDefault;
+        _lastChange[_countofKeys-1] = titanUsers[msg.sender].userPublicKeys[_currencyGlobalKeys[j]].lastChange;
+        _countofKeys--;
+      }
+
+    }
+    return (_publicKeys,_keyNames,_currency,_isDefault,_lastChange);
   }
 
-  function addPublicKeyToUser(bytes32 _publicKey, bytes32 _cur, bytes32 _keyName, uint256 _isStandard) public {
+  function addPublicKeyToUser(bytes32 _publicKey, bytes32 _cur, bytes32 _keyName, bool _isDefault) public {
+    // Activate Currency for User and push it to the currency arrray
+    if (!titanUsers[msg.sender].currencies[_cur].isActive) {
+      titanUsers[msg.sender].curList.push(_cur);
+      titanUsers[msg.sender].currencies[_cur].isActive = true;
+    }
       //Ich muss den TitanName in die NamesList; Dann bekomme ich einen Index zurück. Diesen Index speicher ich bei einem Nutzer ab
       //Hinzufügen des Keys in globale Ledger
-    uint256 _keyIndex = allKeyHashs.push(_publicKey)-1;
-    uint256 _idOfCurKeyHashList = titanUsers[msg.sender].currencies[_cur].keyHashList.push(_keyIndex); //erster Key = _keyIndex 0
-    titanUsers[msg.sender].userPublicKeys[_keyIndex].key =_publicKey;
-    titanUsers[msg.sender].userPublicKeys[_keyIndex].keyName =_keyName;
-    titanUsers[msg.sender].userPublicKeys[_keyIndex].keyStatus =_isStandard;
+    uint256 _keyGlobalIndex = allKeyHashs.push(_publicKey)-1;
+
+    titanUsers[msg.sender].currencies[_cur].keyIdGlobal.push(_keyGlobalIndex); //erster Key = _keyIndex 0
+
+    titanUsers[msg.sender].userPublicKeys[_keyGlobalIndex].key =_publicKey;
+    titanUsers[msg.sender].userPublicKeys[_keyGlobalIndex].keyName =_keyName;
+    titanUsers[msg.sender].userPublicKeys[_keyGlobalIndex].keyStatus =_isDefault;
+    titanUsers[msg.sender].userPublicKeys[_keyGlobalIndex].lastChange = now;
 
   }
 
   function getPublicKeyByName (bytes32 _titanName, bytes32 _cur) public constant returns (bytes32 _publicKey ) {
     address _owner = titanNames[_titanName].owner;
-    uint256 _len = titanUsers[_owner].currencies[_cur].keyHashList.length; //Beispiel: 1 Key, lenght = 1; index 0
+    uint256 _len = titanUsers[_owner].currencies[_cur].keyIdGlobal.length; //Beispiel: 1 Key, lenght = 1; index 0
 
     uint256 j;
     for(uint i = 0; i < _len; i++){
 
-      j = titanUsers[_owner].currencies[_cur].keyHashList[i]; //1. durchlauf i = 0; j = 1 //_keyIndex; Need = 0;
+      j = titanUsers[_owner].currencies[_cur].keyIdGlobal[i]; //1. durchlauf i = 0; j = 1 //_keyIndex; Need = 0;
 
-      if(titanUsers[_owner].userPublicKeys[j].keyStatus == 2) {
+      if(titanUsers[_owner].userPublicKeys[j].keyStatus) {
         // j = Die Id des zu untersuchenden Keys im Globalen Verzeichnis
         return _publicKey = titanUsers[_owner].userPublicKeys[j].key;
       }
@@ -152,25 +182,16 @@ modifier onlyExistingUser {
       Keyliste gesucht und dieser wird zurückgegeben*/
   }
 
-  function isValidCurreny(bytes32 _cur) internal constant returns (bool) {
-    validCurrencies[0] = 'btc';
-    validCurrencies[1] = 'etc';
-    validCurrencies[2] = 'iota';
-    validCurrencies[3] = 'eos';
-    for(uint i = 0; i < validCurrencies.length;i++) {
-      if(validCurrencies[i] == _cur) return true;
-    }
-    return false;
-  }
-
   // USER - Functions
 
-    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email) public {
+    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email, bool nameIsEmail) public {
       if (titanUsers[msg.sender].firstName == 0x0) titanUsers[msg.sender].firstName = _firstName;
       if (titanUsers[msg.sender].lastName == 0x0) titanUsers[msg.sender].lastName = _lastName;
       if (titanUsers[msg.sender].email == 0x0) titanUsers[msg.sender].email = _email;
 
-       UserSignedUp(msg.sender, _firstName, _lastName, _email);
+      if (nameIsEmail) {
+        insertNewName(_email);
+      }
     }
 
     function userUpdate(bytes32 _firstName, bytes32 _lastName, bytes32 _email) onlyExistingUser public {
@@ -183,5 +204,9 @@ modifier onlyExistingUser {
     {
       return (titanUsers[msg.sender].firstName, titanUsers[msg.sender].lastName, titanUsers[msg.sender].email);
     }
+  // UTITLITY
 
+  function getCurFromUser() public constant returns(bytes32[]) {
+    return titanUsers[msg.sender].curList;
   }
+}

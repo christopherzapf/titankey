@@ -8,11 +8,11 @@
     <FooterTemplate />
   </div>
 </template>
-
+<!-- :xxx = v-bind (abk.) -->
 <script>
   export default {
     name: 'dashboard',
-    props: [ 'currentView', 'user' ],
+    props: [ 'currentView', 'user' ], // Props: Übergibt Daten aus dem Parent View - Hier ist der Parent View App.vue; currentView kommt von App.
     components: {
       HeaderTemplate,
       BodyTemplate,

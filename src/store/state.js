@@ -13,9 +13,21 @@ export default {
     email: '',
     firstName: '',
     lastName: '',
+    titanName: '',
+    nameIsEmail: true,
+    hasKeys: false,
     hasCoinbase: false,
     hasWeb3InjectedBrowser: false,
     isConnectedToApprovedNetwork: false,
     isLoggedIn: false
+  },
+  publicKey: {
+    currency: [{
+      cur: '',
+      key: [],
+      name: [],
+      isDefault: [],
+      lastChange: []
+    }]
   }
 }

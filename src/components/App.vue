@@ -2,11 +2,12 @@
   <div id="app">
     <router-view
       :current-view="currentView"
-      :user="user">
+      :user="user"
+    >
       </router-view>
   </div>
 </template>
-
+<!-- router-view rendert den "currentView" - siehe unten  -->
 <script>
 export default {
   name: 'app',
@@ -31,6 +32,8 @@ export default {
           return ProfileForm
         case '/profile/edit':
           return ProfileForm
+        case '/keys':
+          return Keys
         default:
           return Web3Message
       }
@@ -42,6 +45,7 @@ export default {
   components: {
     Profile,
     ProfileForm,
+    Keys,
     Web3Message
   },
   beforeCreate: function () {
@@ -83,8 +87,9 @@ export default {
 
 import { mapState, mapActions } from 'vuex'
 import { ACTION_TYPES } from '../util/constants'
-import Profile from './sections/Profile'
-import ProfileForm from './sections/ProfileForm'
+import Profile from './sections/users/Profile'
+import ProfileForm from './sections/users/ProfileForm'
+import Keys from './sections/keys/Keys'
 import Web3Message from './sections/Web3Message'
 </script>
 

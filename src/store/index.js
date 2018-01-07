@@ -11,7 +11,10 @@ Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
   storage: window.localStorage,
-  reducer: state => ({ user: state.user })
+  reducer: state => ({ // reducer = VuexPersist; Plugin speichert alles im localStorage; Reducer = Speichert nur folgende Werte des States
+    user: state.user,
+    publicKey: state.publicKey
+  })
 })
 
 const store = new Vuex.Store({

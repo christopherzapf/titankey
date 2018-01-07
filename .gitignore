@@ -4,6 +4,9 @@
 /dist
 /tmp
 
+# private notes
+Learning.txt
+
 # dependencies
 /node_modules
 

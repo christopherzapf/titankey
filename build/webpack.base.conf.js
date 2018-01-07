@@ -44,7 +44,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('vue2-datatable-component')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

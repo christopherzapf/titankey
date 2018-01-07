@@ -14,8 +14,7 @@
     width: 100%;
     background: #bababa;
     color: #1d1e1f;
-    height: 150px;
-    position: fixed;
+    height: 50px;
     bottom: 0;
     min-width: 700px
   }

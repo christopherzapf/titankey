@@ -17,6 +17,11 @@
     </div>
 
     <div class="row">
+      <label for="email">Use Email as TitanName</label>
+      <input type="checkbox" id="nameIsEmail" name="nameIsEmail" v-model="user.nameIsEmail">
+    </div>
+
+    <div class="row">
       <input type="button" value="Submit" @click="submitProfileToTheBlockchain">
     </div>
   </div>
@@ -25,7 +30,7 @@
 <script type="text/javascript">
   export default {
     methods: {
-      ...mapActions([
+      ...mapActions([ // mapActions gibt ein Object zurück, dass eigentlich den gesamten "Platz" von Methods ausfüllt. Mit ... kann man noch zusätzliche Objekte hinzufügen
         ACTION_TYPES.LOGIN
       ]),
       submitProfileToTheBlockchain (evt) {
@@ -34,10 +39,9 @@
         const userProfileData = {
           firstName: this.user.firstName,
           lastName: this.user.lastName,
-          email: this.user.email
+          email: this.user.email,
+          nameIsEmail: this.user.nameIsEmail
         }
-        console.log(userProfileData)
-
         Auth[action](this.$store.state, userProfileData)
         .then((userData) => {
           this[ACTION_TYPES.LOGIN](userData)
@@ -65,8 +69,8 @@
   }
 
   import { mapActions } from 'vuex'
-  import { ACTION_TYPES } from '../../util/constants'
-  import Auth from '../../js/Auth'
+  import { ACTION_TYPES } from '../../../util/constants'
+  import Auth from '../../../js/Auth'
 </script>
 
 <style scoped>

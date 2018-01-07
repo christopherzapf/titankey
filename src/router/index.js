@@ -30,8 +30,15 @@ export default new Router({
     },
     {
       mode: 'history',
+      path: '/keys',
+      component: Dashboard
+    },
+    {
+      mode: 'history',
       path: '/profile/edit',
       component: Dashboard
     }
   ]
 })
+
+// Wo wird bestimmt, welcher Route angezeigt wird? Link in der Navi; -> Verweise auf compoment: Dashboard

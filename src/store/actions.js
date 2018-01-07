@@ -1,11 +1,14 @@
 import { ACTION_TYPES, MUTATION_TYPES } from '../util/constants'
 import getWeb3 from '../util/web3/getWeb3'
 import monitorWeb3 from '../util/web3/monitorWeb3'
+// import Keys from '../js/Keys'
 
 export default {
   [ACTION_TYPES.REGISTER_WEB3_INSTANCE] ({ commit, dispatch }) {
     return new Promise(function (resolve, reject) {
-      // Try to initialize web3
+      // Try to ini  tialize web3
+
+      // Commit führt eine Mutation aus; 2 Argumente: Name der Mutation & Payload
       getWeb3
       .then((result) => {
         commit(MUTATION_TYPES.REGISTER_WEB3_INSTANCE, {
@@ -52,6 +55,15 @@ export default {
     return new Promise(function (resolve, reject) {
       commit(MUTATION_TYPES.LOGOUT, {
         callback: () => resolve()
+      })
+    })
+  },
+  [ACTION_TYPES.GETKEYS] ({ commit }, userData) {
+    return new Promise(function (resolve, reject) {
+      console.log('action > GETKEYS')
+      commit(MUTATION_TYPES.GETKEYS, {
+        userData,
+        callback: () => resolve(userData)
       })
     })
   },

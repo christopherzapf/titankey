@@ -16,7 +16,8 @@ export const MUTATION_TYPES = {
   UPDATE_USER_BLOCKCHAIN_STATUS: 'updateUserBlockchainStatus',
   UPDATE_WEB3_PROPERTIES: 'updateWeb3Properties',
   LOGIN: 'login',
-  LOGOUT: 'logout'
+  LOGOUT: 'logout',
+  GETKEYS: 'getKeys'
 }
 
 export const ACTION_TYPES = MUTATION_TYPES
