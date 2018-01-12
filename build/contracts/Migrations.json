@@ -219,11 +219,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-<<<<<<< HEAD
-                                  "referencedDeclaration": 1401,
-=======
-                                  "referencedDeclaration": 1224,
->>>>>>> c9ecfa25cf387e766bc319abc0f1bd2092839867
+                                  "referencedDeclaration": 1428,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -360,11 +356,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-<<<<<<< HEAD
-                                  "referencedDeclaration": 1401,
-=======
-                                  "referencedDeclaration": 1224,
->>>>>>> c9ecfa25cf387e766bc319abc0f1bd2092839867
+                                  "referencedDeclaration": 1428,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -826,17 +818,9 @@
     "5777": {
       "events": {},
       "links": {},
-<<<<<<< HEAD
-      "address": "0x3c863071745e21accc0c61526cb3a899fdb860cd"
+      "address": "0xff1da24b2a427a2cdb0b58bb4775977b9080262f"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-07T18:11:24.018Z"
-=======
-      "address": "0xf50e4a56cd7b6d71f4cdf2f25ca57d176690847a"
-    }
-  },
-  "schemaVersion": "1.0.1",
-  "updatedAt": "2017-12-17T13:47:54.714Z"
->>>>>>> c9ecfa25cf387e766bc319abc0f1bd2092839867
+  "updatedAt": "2018-01-12T21:13:24.426Z"
 }

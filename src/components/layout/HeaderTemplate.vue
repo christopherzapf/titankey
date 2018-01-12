@@ -1,13 +1,13 @@
 <template>
   <div id="header-template" class="sticky header">
     <div class="content">
-      <router-link to="/" class="logo">INSERT YOUR LOGO HERE</router-link>
-      <div class="links">
-        <router-link to="/sign-up" class="link1" v-if="!user.isLoggedIn">Sign Up</router-link> <span v-if="!user.isLoggedIn" class="divider"></span>
-        <router-link to="/keys" class="link1" v-if="user.isLoggedIn">Keys</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
-        <input type="button" class="link1" v-if="!user.isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!user.isLoggedIn" class="divider"></span>
-        <router-link to="/profile/edit" class="link2" v-if="user.isLoggedIn">Edit Profile</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
-        <input type="button" class="link2" v-if="user.isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="user.isLoggedIn" class="divider"></span>
+      <router-link to="/" class="logo"></router-link>
+      <div class="mainNav">
+        <router-link to="/sign-up" class="mainNavLink" v-if="!user.isLoggedIn">Sign Up</router-link> <span v-if="!user.isLoggedIn" class="divider"></span>
+        <router-link to="/keys" class="mainNavLink" v-if="user.isLoggedIn">Keys</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
+        <input type="button" class="mainNavLink" v-if="!user.isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!user.isLoggedIn" class="divider"></span>
+        <router-link to="/profile/edit" class="mainNavLink" v-if="user.isLoggedIn">Edit Profile</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
+        <input type="button" class="mainNavLink" v-if="user.isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="user.isLoggedIn" class="divider"></span>
       </div>
     </div>
   </div>
@@ -74,8 +74,8 @@
     position: fixed;
     padding: 5px 20px;
     top: 0px;
-    height: 70px;
-    background: #bababa;
+    height: 80px;
+    background: #109F94;
     width: 100%;
     box-sizing: border-box;
     z-index: 666;
@@ -87,23 +87,26 @@
   }
 
   .logo {
+    background-image: url(../../assets/titankey-logo-white.png);
     float: left;
-    width: 250px;
-    height: 36px;
+    width: 260px;
+    height: 40px;
     background-size: contain;
+    background-repeat: no-repeat;
     margin: 15px 0px;
     text-decoration: none;
     color: #4d4c49;
   }
 
-  .links {
+  .mainNav {
     float: right;
-    height: 60px;
+    margin-right: 30px;
+    height: 80px;
   }
 
-  .links:before {
+  .mainNav:before {
     content: '|||||';
-    color: #dcdede;
+    color: #fff;
     position: absolute;
     right: 20px;
     height: 20px;
@@ -111,73 +114,57 @@
     top: 40px;
   }
 
-  .links:hover a {
+  .mainNav:hover a {
     display: block;
   }
 
-  .links a {
+  .mainNav a {
     display: none;
     width: 150px;
     height: 50px;
     line-height: 50px;
-    font-size: 14px;
-    color: #bababa;
+    font-size: 16px;
     text-decoration: none;
     text-align: center;
-    border-bottom: 1px solid #dcdede;
-    background: #efefef;
     position: absolute;
     right: 20px;
   }
 
-  .links a:last-child {
+  .mainNav a:last-child {
     border: none;
-  }
-
-  .links a:hover {
-    background: #dcdede;
-    color: #feffff;
-  }
-
-  .link1 {
-    top: 60px;
-  }
-
-  .link2 {
-    top: 110px;
-  }
-
-  .link3 {
-    top: 160px;
-  }
-
-  .link4 {
-    top: 210px;
   }
 
   .divider {
     display: none;
+    color: #fff;
   }
 
-  @media only screen and (min-width: 780px) {
-    .links:before {
+  .mainNavLink {
+    color: #fff;
+    background: transparent;
+    font-size: 16px;
+    border: none;
+  }
+
+  @media only screen and (min-width: 720px) {
+    .mainNav:before {
       display: none;
     }
 
-    .links:hover a {
+    .mainNav:hover a {
       display: inline-block;
     }
 
-    .links a:hover {
+    .mainNav a:hover {
       background: transparent;
       color: #4c4e49;
     }
 
-    .links a {
+    .mainNav a {
       display: inline-block;
       width: auto;
       margin-top: 5px;
-      color: #4c4e49;
+      color: #fff;
       border: none;
       position: relative;
       top: 0px;
@@ -186,7 +173,7 @@
     }
 
     .divider {
-      color: #4c4e49;
+      color: #fff;
       display: inline-block;
     }
 
