@@ -12,7 +12,7 @@
 <style scoped>
   #footer-template {
     width: 100%;
-    background: #bababa;
+    background: #109F94;
     color: #1d1e1f;
     height: 50px;
     bottom: 0;

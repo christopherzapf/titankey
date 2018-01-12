@@ -15,6 +15,8 @@ contract TitanKey is StandardToken {
 
 struct TitanUser {
   bytes32 firstName;
+  uint256 registeredAtBlocktime;
+  uint256 registeredAtTimestamp;
   bytes32 lastName;
   bytes32 email;
   bool userActive;
@@ -42,6 +44,8 @@ struct TitanName {
   //bytes32 titanName; wird nicht gebraucht, da in Mapping vorhanden
   address owner;
   bool nameActive;
+  uint256 registeredAtBlocktime;
+  uint256 registeredAtTimestamp;
 }
 mapping (bytes32 => TitanName) titanNames; //Namesverzeichnis: Jeder Name hat ein TitanName Object
 
@@ -69,12 +73,14 @@ modifier onlyExistingUser {
 @params _titanName: TitanName
 @return false, if Name is active; true, if Name is not active
 */
-  function insertNewName(bytes32 _titanName) onlyExistingUser public {
+  function insertNewName(bytes32 _titanName, uint256 _timestamp) onlyExistingUser public {
     //wenn der Name aktiv ist, dann darf die funktion nicht funktionieren
     if (titanNames[_titanName].nameActive == true) revert();
 
     titanNames[_titanName].owner = msg.sender;
     titanNames[_titanName].nameActive = true;
+    titanNames[_titanName].registeredAtBlocktime = now;
+    titanNames[_titanName].registeredAtTimestamp = _timestamp;
     //Ich muss den TitanName in die NamesList; Dann bekomme ich einen Index zurück. Diesen Index speicher ich bei einem Nutzer ab
     allNames.push(_titanName); //erster Name = stelle 0; länge 1
     titanUsers[msg.sender].nameList.push(allNames.length-1);
@@ -184,13 +190,13 @@ modifier onlyExistingUser {
 
   // USER - Functions
 
-    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email, bool nameIsEmail) public {
+    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email, bool nameIsEmail, uint256 _timestamp) public {
       if (titanUsers[msg.sender].firstName == 0x0) titanUsers[msg.sender].firstName = _firstName;
       if (titanUsers[msg.sender].lastName == 0x0) titanUsers[msg.sender].lastName = _lastName;
       if (titanUsers[msg.sender].email == 0x0) titanUsers[msg.sender].email = _email;
 
       if (nameIsEmail) {
-        insertNewName(_email);
+        insertNewName(_email, _timestamp);
       }
     }
 
