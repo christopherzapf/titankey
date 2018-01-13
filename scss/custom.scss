@@ -1,0 +1,18 @@
+// Import custom font from Google
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+// Set brand colors
+$primary: #109F94;
+$white: #fff;
+
+
+$navbar-light-color: $white;
+$navbar-light-active-color: $white;
+
+//fonts
+$font-family-sans-serif: 'Raleway', sans-serif;
+$font-family-serif: Georgia, 'Times New Roman', Times, serif;
+$font-family-monospace: Menlo, Monaco, Consolas, 'Liberation Mono',
+  'Courier New', monospace;
+$font-family-base: $font-family-sans-serif;
+$font-size-base: 1.5rem;

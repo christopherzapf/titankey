@@ -1,15 +1,34 @@
 <template>
-  <div id="header-template" class="sticky header">
-    <div class="content">
-      <router-link to="/" class="logo"></router-link>
-      <div class="mainNav">
-        <router-link to="/sign-up" class="mainNavLink" v-if="!user.isLoggedIn">Sign Up</router-link> <span v-if="!user.isLoggedIn" class="divider"></span>
-        <router-link to="/keys" class="mainNavLink" v-if="user.isLoggedIn">Keys</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
-        <input type="button" class="mainNavLink" v-if="!user.isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!user.isLoggedIn" class="divider"></span>
-        <router-link to="/profile/edit" class="mainNavLink" v-if="user.isLoggedIn">Edit Profile</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
-        <input type="button" class="mainNavLink" v-if="user.isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="user.isLoggedIn" class="divider"></span>
-      </div>
-    </div>
+  <div id="header-template">
+      <b-navbar type="light" sticky variant="primary" toggleable class="navbar-static-top">
+
+        <b-navbar-brand to="/" class="d-block">
+          <img src="../../assets/titankey-logo-white.png" alt="TITANKEY" height="36px" class="align-middle mt-2">
+        </b-navbar-brand>
+
+        <b-navbar-nav class="mr-auto" v-if="user.isLoggedIn">
+          <b-nav-item-dropdown>
+            <template slot="button-content">Keys</template>
+            <b-dropdown-item to="/keys">Overview</b-dropdown-item>
+            <b-dropdown-item to="/keys/add">Add Keys</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto mr-5">
+          <b-nav-item-dropdown v-if="user.isLoggedIn">
+
+            <template slot="button-content">
+              <span class="glyphicon glyphicon-user pr-2"></span><span class="align-middle username"> {{ user.firstName }}</span>
+            </template>
+
+            <b-dropdown-item v-if="user.isLoggedIn" @click="logUserOut">Logout</b-dropdown-item>
+            <b-dropdown-item to="/profile/edit" v-if="user.isLoggedIn">Edit Profile</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item v-if="!user.isLoggedIn" @click="logUserIn">Login via MegaMask</b-nav-item>
+          <b-nav-item to="/sign-up" v-if="!user.isLoggedIn">Sign Up</b-nav-item>
+        </b-navbar-nav>
+
+      </b-navbar>
   </div>
 </template>
 
@@ -66,119 +85,14 @@
 </script>
 
 <style scoped>
-  #header-template {
-    width: 100%;
-  }
-
-  .sticky {
-    position: fixed;
-    padding: 5px 20px;
-    top: 0px;
-    height: 80px;
-    background: #109F94;
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 666;
-  }
-
-  .content {
-    height: 60px;
-    line-height: 60px;
-  }
-
-  .logo {
-    background-image: url(../../assets/titankey-logo-white.png);
-    float: left;
-    width: 260px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin: 15px 0px;
-    text-decoration: none;
-    color: #4d4c49;
-  }
-
-  .mainNav {
-    float: right;
-    margin-right: 30px;
-    height: 80px;
-  }
-
-  .mainNav:before {
-    content: '|||||';
-    color: #fff;
-    position: absolute;
-    right: 20px;
-    height: 20px;
-    line-height: 20px;
-    top: 40px;
-  }
-
-  .mainNav:hover a {
-    display: block;
-  }
-
-  .mainNav a {
-    display: none;
-    width: 150px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    text-decoration: none;
-    text-align: center;
-    position: absolute;
-    right: 20px;
-  }
-
-  .mainNav a:last-child {
-    border: none;
-  }
-
-  .divider {
-    display: none;
-    color: #fff;
-  }
-
-  .mainNavLink {
-    color: #fff;
-    background: transparent;
-    font-size: 16px;
-    border: none;
-  }
-
-  @media only screen and (min-width: 720px) {
-    .mainNav:before {
-      display: none;
-    }
-
-    .mainNav:hover a {
-      display: inline-block;
-    }
-
-    .mainNav a:hover {
-      background: transparent;
-      color: #4c4e49;
-    }
-
-    .mainNav a {
-      display: inline-block;
-      width: auto;
-      margin-top: 5px;
-      color: #fff;
-      border: none;
-      position: relative;
-      top: 0px;
-      background: transparent;
-      right: 0px;
-    }
-
-    .divider {
-      color: #fff;
-      display: inline-block;
-    }
-
-    .divider:before {
-      content: "|";
-    }
-  }
+span.glyphicon-user {
+  font-size: 1.3em;
+  color: #fff;
+}
+.nav-link.active {
+  font-weight: bold;
+}
+.username {
+  text-transform: capitalize;
+}
 </style>
