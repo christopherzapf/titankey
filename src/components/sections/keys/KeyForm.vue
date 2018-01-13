@@ -1,29 +1,31 @@
 <template>
   <div id="key-form">
-    <h3>Key Management for {{ user.email }} </h3>
-    <div class="row">
-      <label for="user-public-key-key">Add your Public Key</label>
-      <input type="text" id="user-public-key-key" name="user-public-key-key" v-model="publicKey.key">
-    </div>
+    <b-container>
+      <h3>Key Management for {{ user.email }} </h3>
 
-    <div class="row">
-      <label for="user-public-key-name">Give your Public Key a name</label>
-      <input type="text" id="user-public-key-name" name="user-public-key-name" v-model="publicKey.name">
-    </div>
+      <b-form @submit="submitProfileToTheBlockchain">
 
-    <div class="row">
-      <label for="user-public-key-cur">Choose the right currency</label>
-      <input type="text" id="user-public-key-cur" name="user-public-key-cur" v-model="publicKey.currency">
-    </div>
+        <b-form-group label="Public Key:" label-for="publicKey">
+          <b-form-input type="text" v-model="publicKey.key" required placeholder="Enter Public Key"></b-form-input>
+        </b-form-group>
 
-    <div class="row">
-      <label for="user-public-key-cur">Standard Key for this currency?</label>
-      <input type="checkbox" id="user-public-key-standard" name="user-public-key-standard" v-model="publicKey.isDefault">
-    </div>
+        <b-form-group label="Name:" label-for="keyName" description:"Identify your key by his name">
+          <b-form-input type="text" v-model="publicKey.name" required placeholder="Enter key name"></b-form-input>
+        </b-form-group>
 
-    <div class="row">
-      <input type="button" value="Submit" @click="submitProfileToTheBlockchain">
-    </div>
+        <b-form-group label="Currency:" label-for="currency" description:"Choose the currency of the public key">
+          <b-form-input type="text" v-model="publicKey.curreny" required placeholder="Enter currency"></b-form-input>
+        </b-form-group>
+
+        <b-form-group>
+          <b-form-checkbox-group v-model="publicKey.isDefault">
+            <b-form-checkbox>Yes, this is my default key for this currency</b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary">Save on blockchain</b-button>
+    </b-form>
+  </b-container>
 </div>
 </template>
 <script type="text/javascript">
@@ -54,45 +56,4 @@
 </script>
 
 <style scoped>
-  #key-form {
-    width: 100%;
-    height: 420px;
-    position: relative;
-    top: 100px;
-  }
-
-  h3 {
-    margin: auto;
-    margin-bottom: 20px;
-  }
-
-  .row {
-    margin-top: 20px;
-    font-size: 14px;
-    width: 600px;
-    height: 40px;
-    display: block;
-    margin: auto;
-  }
-
-  label {
-    height: 100%;
-    line-height: 40px;
-    display: inline-block;
-  }
-
-  input[type=text] {
-    height: 30px;
-    line-height: 30px;
-    width: 200px;
-    display: inline-block;
-    color: #4d4c49;
-    outline: none;
-  }
-
-  input {
-    height: 30px;
-    line-height: 30px;
-    float: right;
-  }
 </style>

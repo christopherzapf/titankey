@@ -262,12 +262,7 @@
         }
       ],
       "name": "userUpdate",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -282,14 +277,6 @@
         {
           "name": "_subtractedValue",
           "type": "uint256"
-        },
-        {
-          "name": "_email",
-          "type": "bytes32"
-        },
-        {
-          "name": "nameIsEmail",
-          "type": "bool"
         }
       ],
       "name": "decreaseApproval",
@@ -399,12 +386,7 @@
         }
       ],
       "name": "addPublicKeyToUser",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -419,14 +401,6 @@
         {
           "name": "_timestamp",
           "type": "uint256"
-        },
-        {
-          "name": "_keyName",
-          "type": "bytes32"
-        },
-        {
-          "name": "_isDefault",
-          "type": "bool"
         }
       ],
       "name": "insertNewName",
@@ -1266,21 +1240,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "length": null,
-                      "type": "bytes32",
-                      "name": "bytes32"
+                      "name": "bytes32",
+                      "type": "bytes32"
                     },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "bytes32",
-                          "type": "bytes32"
-                        },
-                        "id": 105,
-                        "name": "ElementaryTypeName",
-                        "src": "654:7:1"
-                      }
-                    ],
                     "id": 105,
                     "name": "ElementaryTypeName",
                     "src": "684:7:1"
@@ -1304,21 +1266,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "length": null,
-                      "type": "bool",
-                      "name": "bool"
+                      "name": "bool",
+                      "type": "bool"
                     },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "uint256",
-                          "type": "uint256"
-                        },
-                        "id": 108,
-                        "name": "ElementaryTypeName",
-                        "src": "675:7:1"
-                      }
-                    ],
                     "id": 107,
                     "name": "ElementaryTypeName",
                     "src": "701:4:1"
@@ -1342,8 +1292,8 @@
                 "children": [
                   {
                     "attributes": {
-                      "type": "bytes32[] storage pointer",
-                      "length": null
+                      "length": null,
+                      "type": "bytes32[] storage pointer"
                     },
                     "children": [
                       {
@@ -1354,17 +1304,6 @@
                         "id": 109,
                         "name": "ElementaryTypeName",
                         "src": "720:7:1"
-                      },
-                      {
-                        "attributes": {
-                          "contractScope": null,
-                          "name": "Currency",
-                          "referencedDeclaration": 129,
-                          "type": "struct TitanKey.Currency storage pointer"
-                        },
-                        "id": 112,
-                        "name": "UserDefinedTypeName",
-                        "src": "772:8:1"
                       }
                     ],
                     "id": 110,
@@ -1390,8 +1329,8 @@
                 "children": [
                   {
                     "attributes": {
-                      "type": "uint256[] storage pointer",
-                      "length": null
+                      "length": null,
+                      "type": "uint256[] storage pointer"
                     },
                     "children": [
                       {
@@ -1402,17 +1341,6 @@
                         "id": 112,
                         "name": "ElementaryTypeName",
                         "src": "741:7:1"
-                      },
-                      {
-                        "attributes": {
-                          "contractScope": null,
-                          "name": "PublicKey",
-                          "referencedDeclaration": 140,
-                          "type": "struct TitanKey.PublicKey storage pointer"
-                        },
-                        "id": 116,
-                        "name": "UserDefinedTypeName",
-                        "src": "887:9:1"
                       }
                     ],
                     "id": 113,
@@ -3074,14 +3002,9 @@
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
-                          "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "uint256",
-                          "type_conversion": false,
-                          "operator": "="
+                          "operator": "=",
+                          "type": "uint256"
                         },
                         "children": [
                           {
@@ -3099,20 +3022,12 @@
                               {
                                 "attributes": {
                                   "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 155,
-                                  "type": "struct TitanKey.TitanName storage ref",
-                                  "value": "allNames",
                                   "isConstant": false,
                                   "isLValue": true,
                                   "isPure": false,
-                                  "lValueRequested": false
+                                  "lValueRequested": false,
+                                  "type": "struct TitanKey.TitanName storage ref"
                                 },
-                                "id": 235,
-                                "name": "IndexAccess",
-                                "src": "2539:22:1",
                                 "children": [
                                   {
                                     "attributes": {
@@ -3142,7 +3057,10 @@
                                     "name": "Identifier",
                                     "src": "2550:10:1"
                                   }
-                                ]
+                                ],
+                                "id": 235,
+                                "name": "IndexAccess",
+                                "src": "2539:22:1"
                               }
                             ],
                             "id": 236,
@@ -3181,14 +3099,9 @@
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
-                          "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "uint256",
-                          "type_conversion": false,
-                          "operator": "="
+                          "operator": "=",
+                          "type": "uint256"
                         },
                         "children": [
                           {
@@ -3210,72 +3123,19 @@
                                   "isLValue": true,
                                   "isPure": false,
                                   "lValueRequested": false,
-                                  "member_name": "nameList",
-                                  "referencedDeclaration": 110,
                                   "type": "struct TitanKey.TitanName storage ref"
                                 },
                                 "children": [
                                   {
                                     "attributes": {
                                       "argumentTypes": null,
-                                      "isConstant": false,
-                                      "isLValue": true,
-                                      "isPure": false,
-                                      "lValueRequested": false,
-                                      "type": "mapping(bytes32 => struct TitanKey.TitanName storage ref)",
                                       "overloadedDeclarations": [
                                         null
                                       ],
                                       "referencedDeclaration": 157,
+                                      "type": "mapping(bytes32 => struct TitanKey.TitanName storage ref)",
                                       "value": "titanNames"
                                     },
-                                    "children": [
-                                      {
-                                        "attributes": {
-                                          "argumentTypes": null,
-                                          "overloadedDeclarations": [
-                                            null
-                                          ],
-                                          "referencedDeclaration": 123,
-                                          "type": "mapping(address => struct TitanKey.TitanUser storage ref)",
-                                          "value": "titanUsers"
-                                        },
-                                        "id": 229,
-                                        "name": "Identifier",
-                                        "src": "2584:10:1"
-                                      },
-                                      {
-                                        "attributes": {
-                                          "argumentTypes": null,
-                                          "isConstant": false,
-                                          "isLValue": false,
-                                          "isPure": false,
-                                          "lValueRequested": false,
-                                          "member_name": "sender",
-                                          "referencedDeclaration": null,
-                                          "type": "address"
-                                        },
-                                        "children": [
-                                          {
-                                            "attributes": {
-                                              "argumentTypes": null,
-                                              "overloadedDeclarations": [
-                                                null
-                                              ],
-                                              "referencedDeclaration": 1401,
-                                              "type": "msg",
-                                              "value": "msg"
-                                            },
-                                            "id": 230,
-                                            "name": "Identifier",
-                                            "src": "2595:3:1"
-                                          }
-                                        ],
-                                        "id": 231,
-                                        "name": "MemberAccess",
-                                        "src": "2595:10:1"
-                                      }
-                                    ],
                                     "id": 240,
                                     "name": "Identifier",
                                     "src": "2595:10:1"
@@ -3307,72 +3167,13 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "commonType": {
-                                "typeIdentifier": "t_uint256",
-                                "typeString": "uint256"
-                              },
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "operator": "-",
-                              "type": "uint256",
                               "overloadedDeclarations": [
                                 null
                               ],
                               "referencedDeclaration": 203,
+                              "type": "uint256",
                               "value": "_timestamp"
                             },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "isConstant": false,
-                                  "isLValue": true,
-                                  "isPure": false,
-                                  "lValueRequested": false,
-                                  "member_name": "length",
-                                  "referencedDeclaration": null,
-                                  "type": "uint256"
-                                },
-                                "children": [
-                                  {
-                                    "attributes": {
-                                      "argumentTypes": null,
-                                      "overloadedDeclarations": [
-                                        null
-                                      ],
-                                      "referencedDeclaration": 155,
-                                      "type": "bytes32[] storage ref",
-                                      "value": "allNames"
-                                    },
-                                    "id": 235,
-                                    "name": "Identifier",
-                                    "src": "2621:8:1"
-                                  }
-                                ],
-                                "id": 236,
-                                "name": "MemberAccess",
-                                "src": "2621:15:1"
-                              },
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "hexvalue": "31",
-                                  "isConstant": false,
-                                  "isLValue": false,
-                                  "isPure": true,
-                                  "lValueRequested": false,
-                                  "subdenomination": null,
-                                  "token": "number",
-                                  "type": "int_const 1",
-                                  "value": "1"
-                                },
-                                "id": 237,
-                                "name": "Literal",
-                                "src": "2637:1:1"
-                              }
-                            ],
                             "id": 244,
                             "name": "Identifier",
                             "src": "2642:10:1"
@@ -12754,9 +12555,9 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x4cc657c6ed4902bbf566642678cbfd75e359c10a"
+      "address": "0xfbf6435d9c48bc1f8497e90009f8a458be4e9843"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-12T21:13:24.447Z"
+  "updatedAt": "2018-01-13T21:47:52.583Z"
 }
