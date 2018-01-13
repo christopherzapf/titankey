@@ -4,6 +4,7 @@
     <BodyTemplate
       :current-view="currentView"
       :user="user"
+      :publicKey="publicKey"
     />
     <FooterTemplate />
   </div>
@@ -12,7 +13,7 @@
 <script>
   export default {
     name: 'dashboard',
-    props: [ 'currentView', 'user' ], // Props: Übergibt Daten aus dem Parent View - Hier ist der Parent View App.vue; currentView kommt von App.
+    props: ['currentView', 'user', 'publicKey'], // Props: Übergibt Daten aus dem Parent View - Hier ist der Parent View App.vue; currentView kommt von App.
     components: {
       HeaderTemplate,
       BodyTemplate,
@@ -36,7 +37,4 @@
 </script>
 
 <style scoped>
-  #dashboard {
-    width: 100%;
-  }
 </style>

@@ -35,6 +35,11 @@ export default new Router({
     },
     {
       mode: 'history',
+      path: '/keys/add',
+      component: Dashboard
+    },
+    {
+      mode: 'history',
       path: '/profile/edit',
       component: Dashboard
     }

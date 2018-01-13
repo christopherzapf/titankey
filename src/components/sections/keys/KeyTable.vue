@@ -1,10 +1,6 @@
 <template>
   <div>
     <datatable v-bind="$data">
-      <button class="btn btn-default" @click="alertSelectedUids" :disabled="!selection.length">
-        <i class="fa fa-commenting-o"></i>
-        Alert selected uid(s)
-      </button>
     </datatable>
   </div>
 </template>
@@ -23,21 +19,17 @@ export default {
 
     return {
       supportBackup: true,
+      HeaderSettings: false,
       supportNested: true,
-      tblClass: 'table-bordered',
-      tblStyle: 'color: #666',
+      pagination: false,
       pageSizeOptions: [10, 20, 50],
       columns: (() => {
         const cols = [
-          { title: 'Name', field: 'name', label: 'Name', sortable: true, visible: 'true' },
-          { title: 'Public Key', label: 'Public Key', field: 'key', visible: true, sortable: true },
-          { title: 'isDefault', field: 'isDefault', sortable: true }
+          { title: 'Name', field: 'name', label: 'Name', sortable: true },
+          { title: 'Public key', label: 'Public Key', field: 'key' },
+          { title: 'Default key', field: 'isDefault', sortable: true }
         ]
-        const groupsDef = {
-          Normal: ['Key'],
-          Sortable: ['Name', 'Key', 'isDefault'],
-          Extra: ['isDefault']
-        }
+        const groupsDef = {}
         return cols.map(col => {
           Object.keys(groupsDef).forEach(groupName => {
             if (groupsDef[groupName].includes(col.title)) {
@@ -49,7 +41,6 @@ export default {
       })(),
       data: [],
       total: 0,
-      selection: [],
       summary: {},
       // `query` will be initialized to `{ limit: 10, offset: 0, sort: '', order: '' }` by default
       // other query conditions should be either declared explicitly in the following or set with `Vue.set / $vm.$set` manually later
@@ -66,7 +57,7 @@ export default {
       handler () {
         this.handleQueryChange()
       },
-      deep: true
+      deep: false
     }
   },
   methods: {
@@ -76,15 +67,9 @@ export default {
         this.total = total
         this.summary = summary
       })
-    },
-    alertSelectedUids () {
-      alert(this.selection.map(({ uid }) => uid))
     }
   }
 }
 </script>
 <style>
-.w-240 {
-  width: 240px;
-}
 </style>

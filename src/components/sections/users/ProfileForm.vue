@@ -1,29 +1,34 @@
 <template>
   <div id="profile-form">
-    <h3>{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
-    <div class="row">
-      <label for="first-name">First name</label>
-      <input type="text" id="first-name" name="first-name" v-model="user.firstName">
-    </div>
+    <b-container>
+      <h3>{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
 
-    <div class="row">
-      <label for="last-name">Last name</label>
-      <input type="text" id="Last-name" name="Last-name" v-model="user.lastName">
-    </div>
+      <b-alert show variant="info" align-self="center" dismissable>Your Public Key: {{ user.coinbase }}</b-alert>
 
-    <div class="row">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" v-model="user.email">
-    </div>
+      <b-form submit="submitProfileToTheBlockchain">
 
-    <div class="row">
-      <label for="email">Use Email as TitanName</label>
-      <input type="checkbox" id="nameIsEmail" name="nameIsEmail" v-model="user.nameIsEmail">
-    </div>
+        <b-form-group id="exampleInputGroup1" label="First name:" label-for="exampleInput1">
+          <b-form-input id="exampleInput1" type="text" v-model="user.firstName" required placeholder="Enter first name"></b-form-input>
+        </b-form-group>
 
-    <div class="row">
-      <input type="button" value="Submit" @click="submitProfileToTheBlockchain">
-    </div>
+        <b-form-group id="exampleInputGroup1" label="Last name:" label-for="exampleInput1">
+          <b-form-input id="exampleInput1" type="text" v-model="user.lastName" required placeholder="Enter last name"></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="exampleInputGroup1" label="Email:" label-for="exampleInput1">
+          <b-form-input id="exampleInput1" type="email" v-model="user.email" required placeholder="Enter email" description="We'll never share your email with anyone else."></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="exampleGroup4">
+          <b-form-checkbox-group v-model="user.nameIsEmail" id="exampleChecks">
+            <b-form-checkbox>Register email as TitanName</b-form-checkbox>
+          </b-form-checkbox-group>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary" @click="submitProfileToTheBlockchain">{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</b-button>
+
+      </b-form>
+  </b-container>
   </div>
 </template>
 
@@ -74,48 +79,5 @@
 </script>
 
 <style scoped>
-  #profile-form {
-    width: 100%;
-    height: 420px;
-    position: relative;
-    top: 100px;
-  }
 
-  h3 {
-    width: 100px;
-    margin: auto;
-    margin-bottom: 20px;
-  }
-
-  .row {
-    margin-top: 20px;
-    font-size: 14px;
-    width: 300px;
-    height: 40px;
-    display: block;
-    margin: auto;
-  }
-
-  label {
-    height: 100%;
-    line-height: 40px;
-    width: 100px;
-    display: inline-block;
-  }
-
-  input[type=text] {
-    height: 30px;
-    line-height: 30px;
-    width: 200px;
-    display: inline-block;
-    color: #4d4c49;
-    outline: none;
-  }
-
-  input {
-    height: 30px;
-    line-height: 30px;
-    width: 100px;
-    float: right;
-  }
 </style>

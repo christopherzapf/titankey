@@ -44,4 +44,4 @@ testem.log
 Thumbs.db
 
 #build files
-/build
+/build/contracts/*

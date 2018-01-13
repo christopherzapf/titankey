@@ -3,6 +3,7 @@
     <router-view
       :current-view="currentView"
       :user="user"
+      :publicKey="publicKey"
     >
       </router-view>
   </div>
@@ -20,7 +21,8 @@ export default {
       networkId: state => state.web3.networkId,
       coinbase: state => state.web3.coinbase,
       currentRoute: state => state.currentRoute,
-      user: state => state.user
+      user: state => state.user,
+      publicKey: state => state.publicKey
     }),
     currentView () {
       switch (this.$route.path) {
@@ -34,6 +36,8 @@ export default {
           return ProfileForm
         case '/keys':
           return Keys
+        case '/keys/add':
+          return AddKey
         default:
           return Web3Message
       }
@@ -46,6 +50,7 @@ export default {
     Profile,
     ProfileForm,
     Keys,
+    AddKey,
     Web3Message
   },
   beforeCreate: function () {
@@ -90,31 +95,11 @@ import { ACTION_TYPES } from '../util/constants'
 import Profile from './sections/users/Profile'
 import ProfileForm from './sections/users/ProfileForm'
 import Keys from './sections/keys/Keys'
+import AddKey from './sections/keys/KeyForm'
 import Web3Message from './sections/Web3Message'
 </script>
 
-<style>
-body {
-  margin: 0;
-  width: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  width: 100%;
-  min-width: 1020px;
-  margin: auto;
-}
+<style lang="scss">
+@import '../../scss/custom.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

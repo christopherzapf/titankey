@@ -1,44 +1,21 @@
 import contract from 'truffle-contract'
-import TitanKey from '../../build/contracts/Titankey.json'
-import { APPROVED_NETWORK_ID, NETWORKS } from '../util/constants'
+import TitanKey from '../../../build/contracts/Titankey.json'
+import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'
 
-let auth = null
-class Auth {
+let names = null
+class Names {
   constructor () {
-    auth = auth || this
-    return auth
+    names = names || this
+    return names
   }
 
-  editProfile (state = null, data = {}) {
+  insertNewName (state = null, data = {}) {
     return new Promise((resolve, reject) => {
       this.accessTitanKeyContractWith({
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.userUpdate(data.firstName, data.lastName, data.email, data.nameIsEmail, { from: coinbase, gas: 4444444 })
-            .then((result) => {
-              // Successful Sign-up
-              resolve(data)
-            })
-            .catch((e) => {
-              reject(e)
-            })
-          })
-        }
-      })
-      .then((result) => {
-        resolve(result)
-      })
-    })
-  }
-
-  signup (state = null, data = {}) {
-    return new Promise((resolve, reject) => {
-      this.accessTitanKeyContractWith({
-        state,
-        method: (contractInstance, coinbase) => {
-          return new Promise((resolve, reject) => {
-            contractInstance.userSignUp(data.firstName, data.lastName, data.email, data.nameIsEmail, Date.now(), { from: coinbase })
+            contractInstance.insertNewName(data.titanName, Date.now(), { from: coinbase })
             .then((result) => {
               // Successful Sign-up
               resolve(data)
@@ -59,16 +36,47 @@ class Auth {
     })
   }
 
-  login (state = null) {
+  getNamesOfUser (state = null) {
     return new Promise((resolve, reject) => {
       this.accessTitanKeyContractWith({
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.userLogin({from: coinbase})
+            contractInstance.getNamesOfUser({from: coinbase})
             .then((result) => {
               // Successful Fetch
-              resolve(this.getUTF8UserData(state, result))
+              resolve(this.getUTF8NamesOfUser(state, result))
+            })
+            .catch((e) => {
+              reject(e)
+            })
+          })
+        }
+      })
+      .then((result) => {
+        resolve(result)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+    })
+  }
+
+  getUTF8NamesOfUser (state, results) {
+    const utf8Results = results.map(result => state.web3.instance().toUtf8(result))
+    return utf8Results
+  }
+
+  isNameAvailable (state = null, data = {}) {
+    return new Promise((resolve, reject) => {
+      this.accessTitanKeyContractWith({
+        state,
+        method: (contractInstance, coinbase) => {
+          return new Promise((resolve, reject) => {
+            contractInstance.getNamesOfUser(data.titanName, {from: coinbase})
+            .then((result) => {
+              // Successful Fetch
+              resolve(result)
             })
             .catch((e) => {
               reject(e)
