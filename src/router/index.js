@@ -30,6 +30,12 @@ export default new Router({
     },
     {
       mode: 'history',
+      path: '/keys/:_cur',
+      name: 'keys',
+      component: Dashboard
+    },
+    {
+      mode: 'history',
       path: '/keys',
       component: Dashboard
     },

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <datatable v-bind="$data">
-    </datatable>
+    <b-container>
+      <h2 class="text-center"> All Keys for {{ this.$route.params._cur }} </h2>
+      <datatable v-bind="$data"></datatable>
+  </b-container>
   </div>
 </template>
 <script>

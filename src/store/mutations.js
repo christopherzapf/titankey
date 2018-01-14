@@ -14,7 +14,9 @@ function resetUser (state, web3Status = {}) {
 }
 
 function resetPublicKeys (state, web3Status = {}) {
-  state.publicKey.currency = []
+  state.publicKey = {
+    currency: []
+  }
   state.user.hasKeys = false
 }
 
@@ -82,6 +84,7 @@ export default {
       // Hier wird der State so manipuliert: Die Daten, die an die Blockchain gesendet werden, werden direkti
       // in den State geschrieben, müssen aber eigentlich gepusht werden
       console.log('MUTATION > GETKEYS')
+      console.log('MUTATION > GETKEYS > CUR:' + payload.userData.currency)
       // Erstelle eine Array mit allen Währungen
       let deduplicatedCurs = Array.from(new Set(payload.userData.currency))
 
@@ -108,6 +111,7 @@ export default {
 
   [MUTATION_TYPES.LOGOUT] (state, payload) {
     resetUser(state)
+    resetPublicKeys(state)
     if (payload.callback) payload.callback()
   },
   [MUTATION_TYPES.CHANGE_CURRENT_ROUTE_TO] (state, newRoute) {
