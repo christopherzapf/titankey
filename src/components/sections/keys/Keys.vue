@@ -3,18 +3,23 @@
     <b-container>
       <h4>Your Keys</h4>
         <img src="/static/icons/refresh.png" @click="getAllPublicKeysfromUser()" width="20px">
-        <div v-if="user.hasKeys">
-          <b-nav tabs v-for="_cur in publicKey.currency">
-            <b-nav-item :to="{query:{ cur:_cur.cur}}">{{ _cur.cur }}</b-nav-item>
+        <div v-if="user.hasKeys" v-for="_cur in publicKey.currency">
 
-            <KeyTable
-              :publicKey="publicKey"
-              :cur="_cur.cur"
-            />
-            <b-nav-item class="active">test</b-nav-item>
-          </b-nav>
+          <b-card title="Card Title"
+            img-src="https://lorempixel.com/600/300/food/5/"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="max-width: 20rem;"
+            class="mb-2">
+            <p class="card-text">
+              {{ _cur.cur }}
+            </p>
+            <b-button variant="primary" :to="{ name: 'keys', params: { _cur: _cur.cur }}">{{ _cur.cur }}</b-button>
+          </b-card>
 
         </div>
+
         <div v-else="user.hasKeys">
           <p>No Keys on Ethereum Blockchain for {{ user.email }} ({{ user.coinbase }}) </p>
         </div>

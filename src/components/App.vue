@@ -25,6 +25,7 @@ export default {
       publicKey: state => state.publicKey
     }),
     currentView () {
+      if (/^\/keys.+/.test(this.$route.path) && !(/^\/keys\/add/.test(this.$route.path))) return KeyTable
       switch (this.$route.path) {
         case '/home':
           return Web3Message
@@ -96,6 +97,7 @@ import Profile from './sections/users/Profile'
 import ProfileForm from './sections/users/ProfileForm'
 import Keys from './sections/keys/Keys'
 import AddKey from './sections/keys/KeyForm'
+import KeyTable from './sections/keys/KeyTable'
 import Web3Message from './sections/Web3Message'
 </script>
 
