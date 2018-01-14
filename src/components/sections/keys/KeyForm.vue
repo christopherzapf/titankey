@@ -1,7 +1,7 @@
 <template>
   <div id="key-form">
-    <b-container>
-      <h3>Key Management for {{ user.email }} </h3>
+    <b-container class="w-50">
+      <h3 class="text-center">Key Management for {{ user.email }} </h3>
 
       <b-form @submit="submitProfileToTheBlockchain">
 
@@ -9,20 +9,18 @@
           <b-form-input type="text" v-model="publicKey.key" required placeholder="Enter Public Key"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Name:" label-for="keyName" description:"Identify your key by his name">
+        <b-form-group label="Name:" label-for="keyName">
           <b-form-input type="text" v-model="publicKey.name" required placeholder="Enter key name"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Currency:" label-for="currency" description:"Choose the currency of the public key">
-          <b-form-input type="text" v-model="publicKey.curreny" required placeholder="Enter currency"></b-form-input>
+        <b-form-group label="Currency:" label-for="currency">
+          <b-form-input type="text" v-model="publicKey.currency" required placeholder="Enter currency"></b-form-input>
         </b-form-group>
 
         <b-form-group>
-          <b-form-checkbox-group v-model="publicKey.isDefault">
-            <b-form-checkbox>Yes, this is my default key for this currency</b-form-checkbox>
-          </b-form-checkbox-group>
+          <b-form-checkbox plain v-model="publicKey.isDefault">Yes, this is my default key for this currency:</b-form-checkbox>
         </b-form-group>
-
+        
         <b-button type="submit" variant="primary">Save on blockchain</b-button>
     </b-form>
   </b-container>
