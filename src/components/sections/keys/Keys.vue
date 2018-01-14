@@ -2,10 +2,12 @@
   <div id="key">
     <b-container>
       <h4>Your Keys</h4>
-        <img src="/static/icons/refresh.png" @click="getAllPublicKeysfromUser()" width="20px">
+        <button type="button" class="btn btn-primany btn-l" @click="getAllPublicKeysfromUser()">
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </button>
         <div v-if="user.hasKeys" v-for="_cur in publicKey.currency">
 
-          <b-card title="Card Title"
+          <b-card :title="_cur.cur"
             img-src="https://lorempixel.com/600/300/food/5/"
             img-alt="Image"
             img-top
