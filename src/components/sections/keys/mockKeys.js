@@ -10,7 +10,8 @@ const purify = o => JSON.parse(JSON.stringify(o)) // purify data
  */
 export default function mockKey (query, _cur, _statePublicKeys) {
   let rows = []
-
+  console.log(query)
+  console.log(_cur)
   for (let i = 0; i < _statePublicKeys.currency.length; i++) {
     if (_statePublicKeys.currency[i].cur === _cur) {
       for (let j = 0; j < _statePublicKeys.currency[i].key.length; j++) {

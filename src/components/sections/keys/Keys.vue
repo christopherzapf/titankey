@@ -1,5 +1,5 @@
 <template>
-  <div id="key">
+  <div id="key" class="clearfix">
     <b-container>
       <h4>Your Keys</h4>
         <button type="button" class="btn btn-primany btn-l" @click="getAllPublicKeysfromUser()">
