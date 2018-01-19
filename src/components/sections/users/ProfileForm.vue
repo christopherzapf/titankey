@@ -1,7 +1,7 @@
 <template>
-  <div id="profile-form">
+  <div id="profile-form" class="w-50 m-auto">
     <b-container>
-      <h3>{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
+      <h3 class="text-center">{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
 
       <b-alert show variant="info" align-self="center" dismissable>Your Public Key: {{ user.coinbase }}</b-alert>
 

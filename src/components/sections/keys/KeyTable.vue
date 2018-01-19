@@ -15,7 +15,7 @@ import components from '../../util/vue2-datatable/'
 export default {
   components,
   name: 'KeyTable', // `name` is required as a recursive component
-  props: ['cur'], // from the parent FriendsTable (if exists)
+  props: ['cur', 'publicKey'], // from the parent FriendsTable (if exists)
   data () {
     const amINestedComp = !!this.row
 
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     handleQueryChange () {
-      mockKey(this.query, this.cur, this.$store.state.publicKey).then(({ rows, total, summary }) => {
+      mockKey(this.query, this.$route.params._cur, this.$store.state.publicKey).then(({ rows, total, summary }) => {
         this.data = rows
         this.total = total
         this.summary = summary

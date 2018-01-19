@@ -1,5 +1,5 @@
 <template>
-  <div id="footer-template">
+  <div id="footer-template" class="mt-5">
     <b-container fluid>
       <div class="text-center">From Munich with <i class="fa fa-heart text-danger" aria-hidden="true"></i></div>
     </b-container>
@@ -13,7 +13,6 @@
 </script>
 <style scoped>
   #footer-template{
-    position: absolute;
     bottom: 0;
     width: 100%;
     height: 60px;
