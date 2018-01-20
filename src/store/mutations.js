@@ -5,6 +5,7 @@ function resetUser (state, web3Status = {}) {
     firstName: '',
     lastName: '',
     email: '',
+    titanNames: [],
     isLoggedIn: false
   }
 
@@ -106,6 +107,22 @@ export default {
       if (payload.callback) payload.callback(payload.userData)
     } else {
       console.log('MUTATION > GETKEYS > NO KEYS FOUND')
+    }
+  },
+
+  [MUTATION_TYPES.GETTITANNAMES] (state, payload) {
+    if (payload.userData.length > 0) {
+      state.user.hasTitanName = true
+      // Hier wird der State so manipuliert: Die Daten, die an die Blockchain gesendet werden, werden direkti
+      // in den State geschrieben, müssen aber eigentlich gepusht werden
+      console.log('MUTATION > GETTITANNAMES')
+      console.log(payload.userData)
+      // Erstelle eine Array mit allen Währungen
+      payload.userData = state.user.titanNames
+
+      if (payload.callback) payload.callback(payload.userData)
+    } else {
+      console.log('MUTATION > GETTITANNAMES > NO NAMES FOUND')
     }
   },
 

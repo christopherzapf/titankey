@@ -17,7 +17,8 @@ export const MUTATION_TYPES = {
   UPDATE_WEB3_PROPERTIES: 'updateWeb3Properties',
   LOGIN: 'login',
   LOGOUT: 'logout',
-  GETKEYS: 'getKeys'
+  GETKEYS: 'getKeys',
+  GETTITANNAMES: 'getTitanNames'
 }
 
 export const ACTION_TYPES = MUTATION_TYPES

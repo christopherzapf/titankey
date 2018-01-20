@@ -63,8 +63,8 @@ export default {
     }
   },
   methods: {
-    handleQueryChange () {
-      mockKey(this.query, this.$route.params._cur, this.$store.state.publicKey).then(({ rows, total, summary }) => {
+    handleQueryChange: function () {
+      mockKey(this.query, this.$route.params._cur, this.$store.state.publicKey).then(({rows, total, summary}) => {
         this.data = rows
         this.total = total
         this.summary = summary

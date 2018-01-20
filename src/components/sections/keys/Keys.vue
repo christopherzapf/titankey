@@ -2,7 +2,7 @@
   <div id="key" class="clearfix">
     <b-container>
       <h4>Your Keys</h4>
-        <button type="button" class="btn btn-primany btn-l" @click="getAllPublicKeysfromUser()">
+        <button type="button" class="btn btn-primany btn-l" @click="getAllPublicKeysFromUser()">
           <span class="glyphicon glyphicon-refresh"></span> Refresh
         </button>
         <div v-if="user.hasKeys" v-for="_cur in publicKey.currency">
@@ -40,7 +40,7 @@
       ...mapActions([
         ACTION_TYPES.GETKEYS
       ]),
-      getAllPublicKeysfromUser () {
+      getAllPublicKeysFromUser () {
         Keys['getPublicKeys'](this.$store.state) // Lade die Keys
         .then((userKeys) => {
           this[ACTION_TYPES.GETKEYS](userKeys) // Übergabe async die Keys an State

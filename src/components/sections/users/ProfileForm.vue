@@ -1,30 +1,30 @@
 <template>
   <div id="profile-form" class="w-50 m-auto">
+
     <b-container>
-      <h3 class="text-center">{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
+      <h2 class="text-center">{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h2>
 
       <b-alert show variant="info" align-self="center" dismissable>Your Public Key: {{ user.coinbase }}</b-alert>
 
       <b-form submit="submitProfileToTheBlockchain">
 
-        <b-form-group id="exampleInputGroup1" label="First name:" label-for="exampleInput1">
-          <b-form-input id="exampleInput1" type="text" v-model="user.firstName" required placeholder="Enter first name"></b-form-input>
+        <b-form-group label="First name:" label-for="exampleInput1">
+          <b-form-input type="text" v-model="user.firstName" required placeholder="Enter first name"></b-form-input>
         </b-form-group>
 
-        <b-form-group id="exampleInputGroup1" label="Last name:" label-for="exampleInput1">
-          <b-form-input id="exampleInput1" type="text" v-model="user.lastName" required placeholder="Enter last name"></b-form-input>
+        <b-form-group label="Last name:" label-for="exampleInput1">
+          <b-form-input type="text" v-model="user.lastName" required placeholder="Enter last name"></b-form-input>
         </b-form-group>
 
-        <b-form-group id="exampleInputGroup1" label="Email:" label-for="exampleInput1">
-          <b-form-input id="exampleInput1" type="email" v-model="user.email" required placeholder="Enter email" description="We'll never share your email with anyone else."></b-form-input>
+        <b-form-group label="Email:" label-for="exampleInput1">
+          <b-form-input type="email" v-model="user.email" required placeholder="Enter email" description="We'll never share your email with anyone else."></b-form-input>
         </b-form-group>
-
-        <b-form-group id="exampleGroup4">
-          <b-form-checkbox-group v-model="user.nameIsEmail" id="exampleChecks">
-            <b-form-checkbox>Register email as TitanName</b-form-checkbox>
-          </b-form-checkbox-group>
+        <!-- @TODO WARUM WIRD DAS SCHEISS BOX NICHT ANGEZEIGT? / mit Hilfe der bootstrapVue componente -->
+        <b-form-group>
+            <input type="checkbox" v-model="user.emailIsName" class="titankey-control-input" id="customCheck1"></b-form-checkbox>
+            <label class="custom-control-label" for="customCheck1">TitanKey</label>
         </b-form-group>
-
+        <!-- @TODO Validation geht nicht?!?-->
         <b-button type="submit" variant="primary" @click="submitProfileToTheBlockchain">{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</b-button>
 
       </b-form>
@@ -45,7 +45,7 @@
           firstName: this.user.firstName,
           lastName: this.user.lastName,
           email: this.user.email,
-          nameIsEmail: this.user.nameIsEmail
+          emailIsName: this.user.emailIsName
         }
         Auth[action](this.$store.state, userProfileData)
         .then((userData) => {
@@ -79,5 +79,4 @@
 </script>
 
 <style scoped>
-
 </style>

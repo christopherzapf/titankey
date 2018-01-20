@@ -190,12 +190,12 @@ modifier onlyExistingUser {
 
   // USER - Functions
 
-    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email, bool nameIsEmail, uint256 _timestamp) public {
+    function userSignUp(bytes32 _firstName, bytes32 _lastName, bytes32 _email, bool emailIsName, uint256 _timestamp) public {
       if (titanUsers[msg.sender].firstName == 0x0) titanUsers[msg.sender].firstName = _firstName;
       if (titanUsers[msg.sender].lastName == 0x0) titanUsers[msg.sender].lastName = _lastName;
       if (titanUsers[msg.sender].email == 0x0) titanUsers[msg.sender].email = _email;
 
-      if (nameIsEmail) {
+      if (emailIsName) {
         insertNewName(_email, _timestamp);
       }
     }

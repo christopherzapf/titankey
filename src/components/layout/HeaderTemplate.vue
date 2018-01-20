@@ -12,6 +12,14 @@
             <b-dropdown-item to="/keys">Overview</b-dropdown-item>
             <b-dropdown-item to="/keys/add">Add Keys</b-dropdown-item>
           </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown>
+            <template slot="button-content">Names</template>
+            <!-- @TODO Router Links & URLs -->
+            <b-dropdown-item to="/keys">Overview</b-dropdown-item>
+            <b-dropdown-item to="/keys/add">Resolve Name</b-dropdown-item>
+          </b-nav-item-dropdown>
+
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto mr-5">
@@ -38,7 +46,8 @@
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN,
-        ACTION_TYPES.LOGOUT
+        ACTION_TYPES.LOGOUT,
+        ACTION_TYPES.GETTITANNAMES
       ]),
       logUserIn (evt) { // evt = die event variable im DOM Tree (tag z.b tag name)
         evt.target.disabled = true
@@ -47,6 +56,19 @@
           .then((userData) => {
             this[ACTION_TYPES.LOGIN](userData)
             .then((userData) => {
+              Names['getNamesOfUser'](this.$store.state) // Lade die Keys
+              .then((userTitanNames) => {
+                this[ACTION_TYPES.GETTITANNAMES](userTitanNames) // Übergabe async die Keys an State
+                .then((userTitanNames) => {
+                  console.log('getAllNamesFromUser > Success')
+                }) // Fehler, wenn State nicht geht
+                .catch((err) => {
+                  console.error(err)
+                }) // Fehler wenn Solidity nicht geht
+              })
+              .catch((err) => {
+                console.error(err)
+              })
               evt.target.disabled = false
               if (!this.user.isLoggedIn) {
                 this.$router.push('/')
@@ -81,12 +103,12 @@
 
   import { mapActions } from 'vuex'
   import Auth from '../../js/Auth'
+  import Names from '../../js/Names'
   import { ACTION_TYPES } from '../../util/constants'
 </script>
 
 <style scoped>
 span.glyphicon-user {
-  font-size: 1.3em;
   color: #fff;
 }
 .nav-link.active {

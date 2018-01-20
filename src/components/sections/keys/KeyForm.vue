@@ -20,7 +20,9 @@
         <b-form-group>
           <b-form-checkbox plain v-model="publicKey.isDefault">Yes, this is my default key for this currency:</b-form-checkbox>
         </b-form-group>
-        
+
+        <!-- @TODO Liste alle Namen des Nutzers, die als TitanName hinterlegt sind: Stand heute: Nur "email" -->
+
         <b-button type="submit" variant="primary">Save on blockchain</b-button>
     </b-form>
   </b-container>

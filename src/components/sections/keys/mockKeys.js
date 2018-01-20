@@ -5,7 +5,9 @@ const purify = o => JSON.parse(JSON.stringify(o)) // purify data
 
 /**
  * mockData - simulate Ajax request and respond
- * @param   {Object} query
+ * @param   {Object} query input
+ * @param   {Object} _cur the currency for that the table gets created
+ * @param   {Object} _statePublicKeys publicKey Object from state
  * @resolve {Object}
  */
 export default function mockKey (query, _cur, _statePublicKeys) {

@@ -60,39 +60,4 @@
 </script>
 
 <style scoped>
-  #web3-message {
-    width: 100%;
-    height: 420px;
-  }
-
-  .blockchain-message {
-    float: left;
-    margin-top: 20px;
-    font-size: 14px;
-    border: 1px solid #dcdede;
-    color: #4d4c49;
-    width: auto;
-    padding: 10px;
-  }
-
-  .content {
-    height: 100%;
-    text-align: center;
-    max-width: 920px;
-    margin: auto;
-    padding: 160px;
-  }
-
-  .message {
-    height: 80px;
-    line-height: 40px;
-  }
-
-  .metamask-resource {
-    background: url('/static/images/metamask.png') no-repeat;
-    background-size: contain;
-    height: 200px;
-    width: auto;
-    cursor: pointer;
-  }
 </style>

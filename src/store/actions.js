@@ -67,6 +67,15 @@ export default {
       })
     })
   },
+  [ACTION_TYPES.GETTITANNAMES] ({ commit }, userData) {
+    return new Promise(function (resolve, reject) {
+      console.log('action > GETTITANNAMES')
+      commit(MUTATION_TYPES.GETTITANNAMES, {
+        userData,
+        callback: () => resolve(userData)
+      })
+    })
+  },
   [ACTION_TYPES.CHANGE_CURRENT_ROUTE_TO] ({ commit }, newRoute) {
     commit(MUTATION_TYPES.CHANGE_CURRENT_ROUTE_TO, newRoute)
   }

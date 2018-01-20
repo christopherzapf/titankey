@@ -1,6 +1,6 @@
 import contract from 'truffle-contract'
-import TitanKey from '../../../build/contracts/Titankey.json'
-import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'
+import TitanKey from '../../build/contracts/Titankey.json'
+import { APPROVED_NETWORK_ID, NETWORKS } from '../util/constants'
 
 let names = null
 class Names {
@@ -142,4 +142,4 @@ class Names {
   }
 }
 
-export default new Auth()
+export default new Names()
